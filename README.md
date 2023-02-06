@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# apportion <a href="https://christopherkenny.github.io/apportion/"><img src="man/figures/logo.png" align="right" height="138" /></a>
+# apportion <a href="https://christophertkenny.com/apportion/"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 
