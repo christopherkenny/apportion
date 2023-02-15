@@ -1,5 +1,5 @@
 Package: apportion
-Title: Compute Apportionments
+Title: Apportion Seats
 Version: 0.0.1
 Authors@R: 
     person(given = "Christopher T.",
