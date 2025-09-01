@@ -1,51 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/404.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/index.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/reference/app_adams.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/reference/app_balinski_young.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/reference/app_dean.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/reference/app_dhondt.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/reference/app_hamilton_vinton.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/reference/app_huntington_hill.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/reference/app_jefferson.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/reference/app_webster.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://christopherkenny.github.io/apportion/reference/state_2020.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://christopherkenny.github.io/apportion/404.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/LICENSE-text.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/LICENSE.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/authors.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/index.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/news/index.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/reference/app_adams.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/reference/app_balinski_young.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/reference/app_dean.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/reference/app_dhondt.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/reference/app_hamilton_vinton.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/reference/app_huntington_hill.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/reference/app_jefferson.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/reference/app_webster.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/reference/index.html</loc></url>
+<url><loc>https://christopherkenny.github.io/apportion/reference/state_2020.html</loc></url>
 </urlset>
+
