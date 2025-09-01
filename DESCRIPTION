@@ -1,11 +1,11 @@
 Package: apportion
 Title: Apportion Seats
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person(given = "Christopher T.",
            family = "Kenny",
            role = c("aut", "cre"),
-           email = "christopherkenny@fas.harvard.edu",
+           email = "ctkenny@proton.me",
            comment = c(ORCID = "0000-0002-9386-6860"))
 Description: Convert populations into integer number of seats for legislative 
     bodies. Implements apportionment methods used historically and currently in the
