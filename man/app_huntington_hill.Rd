@@ -2,7 +2,7 @@
 % Please edit documentation in R/huntington_hill.R
 \name{app_huntington_hill}
 \alias{app_huntington_hill}
-\title{Apportion by the Huntington-Hill Method}
+\title{Apportion by the Huntington-Hill (Equal proportions) Method}
 \usage{
 app_huntington_hill(size, pop)
 }
@@ -12,11 +12,34 @@ app_huntington_hill(size, pop)
 \item{pop}{A vector of population sizes for each unit}
 }
 \value{
-integer vector
+An integer vector of the same length as \code{pop} with the number of
+seats apportioned to each unit.
 }
 \description{
-Apportion by the Huntington-Hill Method
+The current method used for US Congressional apportionment, in continuous
+use since the Apportionment Act of 1941. Also known as the method of equal
+proportions.
+}
+\details{
+The Huntington-Hill method is a sequential priority method. Starting with one
+seat allocated to each unit (a constitutional minimum for Congressional
+apportionment), it repeatedly awards the next seat to the unit with the
+highest priority value:
+\deqn{P_i(n) = \frac{p_i}{\sqrt{n(n + 1)}}}
+where \eqn{p_i} is the population of unit \eqn{i} and \eqn{n} is the number
+of seats currently held by unit \eqn{i}.
+
+This is equivalent to a divisor method that rounds each quotient at the
+geometric mean of the two surrounding integers: \eqn{p_i / d} is rounded
+up to \eqn{n + 1} if it exceeds \eqn{\sqrt{n(n+1)}}, and down to \eqn{n}
+otherwise. Among the divisor methods, Huntington-Hill minimizes the maximum
+relative difference in representation between any two units.
 }
 \examples{
 app_huntington_hill(size = 435, pop = state_2020$pop)
+}
+\references{
+Huntington, E. V. (1928). The apportionment of representatives in Congress.
+\emph{Transactions of the American Mathematical Society}, 30(1), 85--110.
+\doi{10.2307/1989268}
 }

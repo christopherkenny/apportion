@@ -1,13 +1,31 @@
 #' Apportion by the Adams Method
 #'
+#' A divisor method that uses ceiling (round-up) rounding, proposed by John
+#' Quincy Adams. It was never adopted for US Congressional apportionment.
+#'
+#' @details
+#' The Adams method finds a common divisor \eqn{d} such that ceiling-rounded
+#' quotients sum to the desired house size:
+#' \deqn{\sum_{i} \left\lceil \frac{p_i}{d} \right\rceil = H}
+#' where \eqn{p_i} is the population of unit \eqn{i} and \eqn{H} is the total
+#' number of seats (`size`). The divisor \eqn{d} is adjusted iteratively until
+#' this condition is met.
+#'
+#' Because every non-zero fractional remainder is always rounded up, the Adams
+#' method is the most generous to small units among the classical divisor
+#' methods. Any unit with a positive population receives at least one seat,
+#' which can over-represent small states or parties relative to their population
+#' share.
+#'
 #' @param size An integer number of seats to apportion across units
 #' @param pop A vector of population sizes for each unit
 #'
-#' @return An integer vector of the same length as `pop` with the number of seats apportioned to each unit.
-#' @export
+#' @return An integer vector of the same length as `pop` with the number of
+#'   seats apportioned to each unit.
 #'
 #' @examples
 #' app_adams(size = 435, pop = state_2020$pop)
+#' @export
 app_adams <- function(size, pop) {
 
   div <- floor(sum(pop) / size)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/webster.R
 \name{app_webster}
 \alias{app_webster}
-\title{Apportion by the Webster Method}
+\title{Apportion by the Webster (Sainte-Laguë) Method}
 \usage{
 app_webster(size, pop)
 }
@@ -12,10 +12,27 @@ app_webster(size, pop)
 \item{pop}{A vector of population sizes for each unit}
 }
 \value{
-integer vector
+An integer vector of the same length as \code{pop} with the number of
+seats apportioned to each unit.
 }
 \description{
-Apportion by the Webster Method
+A divisor method that uses standard arithmetic-mean rounding, used for US
+Congressional apportionment in 1842 and from 1911 to 1931. Also used in
+Norway and Sweden for parliamentary seat allocation (where it is known as the
+Sainte-Laguë method).
+}
+\details{
+The Webster method finds a common divisor \eqn{d} such that
+standard-rounded quotients sum to the desired house size:
+\deqn{\sum_{i} \text{round}\!\left(\frac{p_i}{d}\right) = H}
+where \eqn{p_i} is the population of unit \eqn{i} and \eqn{H} is the total
+number of seats (\code{size}). Quotients are rounded at the arithmetic mean
+\eqn{n + 0.5} of consecutive integers \eqn{n} and \eqn{n + 1}.
+
+Among the classical divisor methods, Webster is considered the most
+statistically unbiased: it does not systematically favor either large or
+small units. It minimizes the expected absolute deviation from exact quotas
+when populations are drawn from a wide range of sizes.
 }
 \examples{
 app_webster(size = 435, pop = state_2020$pop)
