@@ -1,26 +1,26 @@
 Package: apportion
 Title: Apportion Seats
 Version: 0.0.2
-Authors@R: 
-    person(given = "Christopher T.",
-           family = "Kenny",
-           role = c("aut", "cre"),
-           email = "ctkenny@proton.me",
-           comment = c(ORCID = "0000-0002-9386-6860"))
-Description: Convert populations into integer number of seats for legislative 
+Authors@R: c(
+    person("Christopher T.", "Kenny", role = c("aut", "cre"), email = "ctkenny@proton.me",
+           comment = c(ORCID = "0000-0002-9386-6860")),
+    person("Cory", "McCartan", role = "aut", email = "mccartan@psu.edu",
+           comment = c(ORCID = "0000-0002-6251-669X"))
+    )
+Description: Convert populations into integer number of seats for legislative
     bodies. Implements apportionment methods used historically and currently in the
-    United States for reapportionment after the Census, as described in 
-    <https://www.census.gov/history/www/reference/apportionment/methods_of_apportionment.html>. 
+    United States for reapportionment after the Census, as described in
+    <https://www.census.gov/history/www/reference/apportionment/methods_of_apportionment.html>.
 License: MIT + file LICENSE
 Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
-Depends: 
+Depends:
     R (>= 2.10)
-LazyData: true
-Suggests: 
+Suggests:
     testthat (>= 3.0.0)
-Config/testthat/edition: 3
+LazyData: true
 URL: https://github.com/christopherkenny/apportion,
     http://christophertkenny.com/apportion/
 BugReports: https://github.com/christopherkenny/apportion/issues
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Config/testthat/edition: 3

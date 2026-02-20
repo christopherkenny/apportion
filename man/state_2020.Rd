@@ -6,10 +6,10 @@
 \description{
 tibble with columns:
 \itemize{
-\item \code{GEOID}: Federal Information Processing Standards codes
-\item \code{name}: title case state name
-\item \code{pop}: 2020 population
-\item \code{abb}: two letter postal abbreviations
+\item \code{GEOID}: Federal Information Processing Standards code
+\item \code{name}: State name
+\item \code{pop}: 2020 census population
+\item \code{abb}: Two-letter postal abbreviation
 }
 }
 \examples{

@@ -4,10 +4,10 @@
 #'
 #' @description
 #' tibble with columns:
-#' - `GEOID`: Federal Information Processing Standards codes
-#' - `name`: title case state name
-#' - `pop`: 2020 population
-#' - `abb`: two letter postal abbreviations
+#' - `GEOID`: Federal Information Processing Standards code
+#' - `name`: State name
+#' - `pop`: 2020 census population
+#' - `abb`: Two-letter postal abbreviation
 #'
 #' @examples
 #' head(state_2020)
