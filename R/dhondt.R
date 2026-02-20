@@ -36,7 +36,6 @@
 #' @examples
 #' app_dhondt(size = 435, pop = state_2020$pop)
 app_dhondt <- function(size, pop) {
-
   apprt <- rep.int(0, times = length(pop))
 
   if (size < 0) {
@@ -53,7 +52,6 @@ app_dhondt <- function(size, pop) {
   }
 
   apprt
-
 }
 
 #' @export

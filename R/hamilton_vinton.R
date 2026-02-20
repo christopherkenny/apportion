@@ -26,7 +26,6 @@
 #' app_hamilton_vinton(size = 435, pop = state_2020$pop)
 #' @export
 app_hamilton_vinton <- function(size, pop) {
-  # init ----
   apprt <- rep.int(1L, times = length(pop))
 
   if (size < 0) {

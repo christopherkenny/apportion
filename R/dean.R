@@ -29,8 +29,12 @@
 #' app_dean(size = 435, pop = state_2020$pop)
 #' @export
 app_dean <- function(size, pop) {
-
   div <- floor(sum(pop) / size)
+
+  round_harm <- function(v) {
+    fc = 2 * floor(v) * ceiling(v) / (floor(v) + ceiling(v))
+    ifelse(v < fc, floor(v), ceiling(v))
+  }
 
   apprt <- round_harm(pop / div)
   rem <- size - sum(apprt)
@@ -48,12 +52,3 @@ app_dean <- function(size, pop) {
 
   apprt
 }
-
-fc_harm <- function(v) {
-  2 * floor(v) * ceiling(v) / (floor(v) + ceiling(v))
-}
-
-round_harm <- function(v) {
-  ifelse(v < fc_harm(v), floor(v), ceiling(v))
-}
-

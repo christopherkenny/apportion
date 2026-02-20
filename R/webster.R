@@ -27,7 +27,6 @@
 #' app_webster(size = 435, pop = state_2020$pop)
 #' @export
 app_webster <- function(size, pop) {
-
   div <- floor(sum(pop) / size)
 
   apprt <- round(pop / div)

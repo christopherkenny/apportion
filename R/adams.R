@@ -18,7 +18,11 @@
 #' share.
 #'
 #' @param size An integer number of seats to apportion across units
-#' @param pop A vector of population sizes for each unit
+#' @param pop A vector or matrix of population sizes for each unit. If a matrix
+#'   is provided, the apportionment algorithm is applied columnwise:
+#'   each row is a unit and each column is a replicate. For example, with
+#'   congressional apportionment, the matrix would have 50 rows and as many
+#'   columns as hypothetical census population scenarios.
 #'
 #' @return An integer vector of the same length as `pop` with the number of
 #'   seats apportioned to each unit.
@@ -27,22 +31,32 @@
 #' app_adams(size = 435, pop = state_2020$pop)
 #' @export
 app_adams <- function(size, pop) {
-
-  div <- floor(sum(pop) / size)
-
-  apprt <- ceiling(pop / div)
-  rem <- size - sum(apprt)
-
-  while (rem != 0) {
-    diff <- ifelse(rem < 0, 1L, -1L)
-    div <- div + diff
-    apprt <- ceiling(pop / div)
-    rem <- size - sum(apprt)
-  }
-
-  if (!is.null(names(pop))) {
-    names(apprt) <- names(pop)
-  }
-
-  apprt
+  apprt <- run_adams(as.integer(size), as.matrix(pop))
+  restore_app(apprt, pop)
 }
+
+run_adams <- quickr::quick(
+  function(n_tot, pop) {
+    declare(type(n_tot = integer(1)), type(pop = double(NA, NA)))
+    out = matrix(0L, nrow = nrow(pop), ncol = ncol(pop))
+
+    for (k in seq_len(ncol(pop))) {
+      div <- floor(sum(pop[, k]) / n_tot)
+
+      apprt <- ceiling(pop[, k] / div)
+      rem <- n_tot - sum(apprt)
+
+      while (rem != 0) {
+        diff <- ifelse(rem < 0L, 1L, -1L)
+        div <- div + diff
+        apprt <- ceiling(pop[, k] / div)
+        rem <- n_tot - sum(apprt)
+      }
+
+      out[, k] = apprt
+    }
+
+    out
+  },
+  name = "adams"
+)

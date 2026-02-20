@@ -37,7 +37,6 @@
 #' app_balinski_young(size = 435, pop = state_2020$pop)
 #' @export
 app_balinski_young <- function(size, pop) {
-
   total_pop <- sum(pop)
 
   apprt <- integer(length(pop))
