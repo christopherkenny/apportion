@@ -1,7 +1,6 @@
 #' Apportion by the Webster Method
 #'
-#' @param size number of seats to apportion across units
-#' @param pop a vector of population sizes for each unit
+#' @inheritParams app_adams
 #'
 #' @return integer vector
 #' @export

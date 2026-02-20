@@ -1,9 +1,9 @@
 #' Apportion by the Adams Method
 #'
-#' @param size number of seats to apportion across units
-#' @param pop a vector of population sizes for each unit
+#' @param size An integer number of seats to apportion across units
+#' @param pop A vector of population sizes for each unit
 #'
-#' @return integer vector
+#' @return An integer vector of the same length as `pop` with the number of seats apportioned to each unit.
 #' @export
 #'
 #' @examples

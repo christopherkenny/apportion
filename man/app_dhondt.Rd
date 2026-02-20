@@ -7,9 +7,9 @@
 app_dhondt(size, pop)
 }
 \arguments{
-\item{size}{number of seats to apportion across units}
+\item{size}{An integer number of seats to apportion across units}
 
-\item{pop}{a vector of population sizes for each unit}
+\item{pop}{A vector of population sizes for each unit}
 }
 \value{
 integer vector
