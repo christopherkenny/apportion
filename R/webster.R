@@ -18,12 +18,14 @@
 #' small units. It minimizes the expected absolute deviation from exact quotas
 #' when populations are drawn from a wide range of sizes.
 #'
-#' @inheritParams app-params
-#' @inherit app-params return
+#' @param size `r template_var_size()`
+#' @param pop `r template_var_pop()`
+#'
+#' @return `r template_var_return()`
+#' @export
 #'
 #' @examples
 #' app_webster(size = 435, pop = state_2020$pop)
-#' @export
 app_webster <- function(size, pop) {
 
   div <- floor(sum(pop) / size)

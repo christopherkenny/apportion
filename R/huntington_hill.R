@@ -19,17 +19,19 @@
 #' otherwise. Among the divisor methods, Huntington-Hill minimizes the maximum
 #' relative difference in representation between any two units.
 #'
-#' @inheritParams app-params
-#' @inherit app-params return
-#'
 #' @references
 #' Huntington, E. V. (1928). The apportionment of representatives in Congress.
 #' *Transactions of the American Mathematical Society*, 30(1), 85--110.
 #' \doi{10.2307/1989268}
 #'
+#' @param size `r template_var_size()`
+#' @param pop `r template_var_pop()`
+#'
+#' @return `r template_var_return()`
+#' @export
+#'
 #' @examples
 #' app_huntington_hill(size = 435, pop = state_2020$pop)
-#' @export
 app_huntington_hill <- function(size, pop) {
 
   # init ----

@@ -27,12 +27,14 @@
 #' sequential D'Hondt priority \eqn{p_i / (n_i + 1)} are two perspectives on
 #' the same apportionment rule.
 #'
-#' @inheritParams app-params
-#' @inherit app-params return
+#' @param size `r template_var_size()`
+#' @param pop `r template_var_pop()`
+#'
+#' @return `r template_var_return()`
+#' @export
 #'
 #' @examples
 #' app_dhondt(size = 435, pop = state_2020$pop)
-#' @export
 app_dhondt <- function(size, pop) {
 
   apprt <- rep.int(0, times = length(pop))

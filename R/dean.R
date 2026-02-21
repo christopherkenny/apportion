@@ -20,12 +20,14 @@
 #' treatment of small versus large units, giving slightly more seats to small
 #' units than Webster but fewer than Huntington-Hill.
 #'
-#' @inheritParams app-params
-#' @inherit app-params return
+#' @param size `r template_var_size()`
+#' @param pop `r template_var_pop()`
+#'
+#' @return `r template_var_return()`
+#' @export
 #'
 #' @examples
 #' app_dean(size = 435, pop = state_2020$pop)
-#' @export
 app_dean <- function(size, pop) {
 
   div <- floor(sum(pop) / size)

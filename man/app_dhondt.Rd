@@ -10,13 +10,12 @@ app_dhondt(size, pop)
 app_jefferson(size, pop)
 }
 \arguments{
-\item{size}{An integer number of seats to apportion across units}
+\item{size}{an integer number of seats to apportion across units}
 
-\item{pop}{A vector of population sizes for each unit}
+\item{pop}{a vector of population sizes for each unit}
 }
 \value{
-An integer vector of the same length as \code{pop} with the number of
-seats apportioned to each unit.
+an integer vector of the same length as \code{pop} with the number of seats apportioned to each unit.
 }
 \description{
 A sequential priority method widely used for \strong{proportional representation}

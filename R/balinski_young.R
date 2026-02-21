@@ -24,16 +24,18 @@
 #' satisfy the quota property and avoid all paradoxes; this method is a
 #' practical compromise that prioritizes the quota property.
 #'
-#' @inheritParams app-params
-#' @inherit app-params return
-#'
 #' @references
 #' Balinski, M. L., & Young, H. P. (2001). *Fair Representation: Meeting the
 #' Ideal of One Man, One Vote* (2nd ed.). Brookings Institution Press.
 #'
+#' @param size `r template_var_size()`
+#' @param pop `r template_var_pop()`
+#'
+#' @return `r template_var_return()`
+#' @export
+#'
 #' @examples
 #' app_balinski_young(size = 435, pop = state_2020$pop)
-#' @export
 app_balinski_young <- function(size, pop) {
 
   total_pop <- sum(pop)
