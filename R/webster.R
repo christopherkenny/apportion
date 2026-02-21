@@ -25,7 +25,7 @@
 #' app_webster(size = 435, pop = state_2020$pop)
 #' @export
 app_webster <- function(size, pop, init = NULL) {
-  if (size < 0) {
+  if (any(size < 0)) {
     stop("`size` must be non-negative.")
   }
   apprt <- run_webster(make_size(size, pop), as.matrix(pop), make_init(init, pop))
