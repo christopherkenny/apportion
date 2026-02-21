@@ -2,12 +2,9 @@
 % Please edit documentation in R/webster.R
 \name{app_webster}
 \alias{app_webster}
-\alias{app_saint_lague}
 \title{Apportion by the Webster (Sainte-Laguë) Method}
 \usage{
 app_webster(size, pop, init = NULL)
-
-app_saint_lague(size, pop, init = NULL)
 }
 \arguments{
 \item{size}{An integer number of seats to apportion across units}
