@@ -19,29 +19,37 @@
 #' when populations are drawn from a wide range of sizes.
 #'
 #' @inheritParams app_adams
-#'
-#' @return An integer vector of the same length as `pop` with the number of
-#'   seats apportioned to each unit.
+#' @inheritParams app_dhondt
+#' @inherit app_adams return
 #'
 #' @examples
 #' app_webster(size = 435, pop = state_2020$pop)
 #' @export
-app_webster <- function(size, pop) {
-  div <- floor(sum(pop) / size)
-
-  apprt <- round(pop / div)
-  rem <- size - sum(apprt)
-
-  while (rem != 0) {
-    diff <- ifelse(rem < 0, 1L, -1L)
-    div <- div + diff
-    apprt <- round(pop / div)
-    rem <- size - sum(apprt)
+app_webster <- function(size, pop, init = NULL) {
+  if (size < 0) {
+    stop("`size` must be positive.")
   }
-
-  if (!is.null(names(pop))) {
-    names(apprt) <- names(pop)
-  }
-
-  apprt
+  apprt <- run_webster(as.integer(size), as.matrix(pop), make_init(init, pop))
+  restore_app(apprt, pop)
 }
+
+run_webster <- quickr::quick(
+  function(n_tot, pop, apprt) {
+    declare(type(n_tot = integer(1)), type(pop = double(n, m)), type(apprt = integer(n, m)))
+
+    for (k in seq_len(ncol(pop))) {
+      div <- floor(sum(pop[, k]) / n_tot)
+      rem <- n_tot - sum(apprt[, k])
+
+      while (rem != 0) {
+        diff <- ifelse(rem < 0, 1L, -1L)
+        div <- div + diff
+        apprt[, k] <- floor(pop[, k] / div + 0.5)
+        rem <- n_tot - sum(apprt[, k])
+      }
+    }
+
+    apprt
+  },
+  name = "webster"
+)

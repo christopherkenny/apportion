@@ -9,20 +9,22 @@ app_dean(size, pop)
 \arguments{
 \item{size}{An integer number of seats to apportion across units}
 
-\item{pop}{A vector of population sizes for each unit}
+\item{pop}{A vector or matrix of population sizes for each unit. If a matrix
+is provided, the apportionment algorithm is applied columnwise:
+each row is a unit and each column is a replicate. For example, with
+congressional apportionment, the matrix would have 50 rows and as many
+columns as hypothetical census population scenarios.}
 }
 \value{
-An integer vector of the same length as \code{pop} with the number of
-seats apportioned to each unit.
+An integer vector or matrix of the same dimensions as \code{pop},
+containing the number of seats apportioned to each unit.
 }
 \description{
-A divisor method that rounds at the harmonic mean of consecutive integers,
-proposed by astronomer James Dean. It was never adopted for US Congressional
-apportionment.
+A divisor method that rounds at the harmonic mean of consecutive integers.
 }
 \details{
 The Dean method finds a common divisor \eqn{d} and rounds each quotient at
-the \strong{harmonic mean} of the two surrounding integers. A quotient
+the harmonic mean of the two surrounding integers. A quotient
 \eqn{p_i / d} that falls between integers \eqn{n} and \eqn{n + 1} is
 rounded up to \eqn{n + 1} if it exceeds the harmonic mean:
 \deqn{H(n,\, n+1) = \frac{2n(n+1)}{2n+1}}
@@ -30,7 +32,7 @@ and rounded down to \eqn{n} otherwise. The divisor is adjusted iteratively
 until the total allocation equals \code{size}.
 
 Among the classical divisor methods, the Dean method minimizes the absolute
-difference in \strong{average district population} (i.e., \eqn{p_i / s_i}, where
+difference in average district population (i.e., \eqn{p_i / s_i}, where
 \eqn{s_i} is the number of seats awarded to unit \eqn{i}) between any two
 units. It falls between the Webster and Huntington-Hill methods in its
 treatment of small versus large units, giving slightly more seats to small

@@ -24,13 +24,16 @@
 #'   congressional apportionment, the matrix would have 50 rows and as many
 #'   columns as hypothetical census population scenarios.
 #'
-#' @return An integer vector of the same length as `pop` with the number of
-#'   seats apportioned to each unit.
+#' @return An integer vector or matrix of the same dimensions as `pop`,
+#'    containing the number of seats apportioned to each unit.
 #'
 #' @examples
 #' app_adams(size = 435, pop = state_2020$pop)
 #' @export
 app_adams <- function(size, pop) {
+  if (size < 0) {
+    stop("`size` must be positive.")
+  }
   apprt <- run_adams(as.integer(size), as.matrix(pop))
   restore_app(apprt, pop)
 }

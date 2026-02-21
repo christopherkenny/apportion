@@ -25,9 +25,7 @@
 #' practical compromise that prioritizes the quota property.
 #'
 #' @inheritParams app_adams
-#'
-#' @return An integer vector of the same length as `pop` with the number of
-#'   seats apportioned to each unit.
+#' @inherit app_adams return
 #'
 #' @references
 #' Balinski, M. L., & Young, H. P. (2001). *Fair Representation: Meeting the
@@ -36,20 +34,29 @@
 #' @examples
 #' app_balinski_young(size = 435, pop = state_2020$pop)
 #' @export
-app_balinski_young <- function(size, pop) {
-  total_pop <- sum(pop)
-
-  apprt <- integer(length(pop))
-
-  for (h in seq_len(size)) {
-    v <- pop / (1 + apprt)
-    v[pop < pop * h / total_pop] <- 0
-    apprt[which.max(v)] <- apprt[which.max(v)] + 1L
+app_balinski_young <- function(size, pop, init = NULL) {
+  if (size < 0) {
+    stop("`size` must be positive.")
   }
-
-  if (!is.null(names(pop))) {
-    names(apprt) <- names(pop)
-  }
-
-  apprt
+  apprt <- run_balinski_young(as.integer(size), as.matrix(pop), make_init(init, pop))
+  restore_app(apprt, pop)
 }
+
+run_balinski_young <- quickr::quick(
+  function(n_tot, pop, apprt) {
+    declare(type(n_tot = integer(1)), type(pop = double(n, m)), type(apprt = integer(n, m)))
+
+    for (k in seq_len(ncol(pop))) {
+      total_pop <- sum(pop[, k])
+
+      for (h in seq_len(n_tot)) {
+        v <- pop[, k] / (1 + apprt[, k])
+        v[pop[, k] < pop[, k] * h / total_pop] <- 0
+        apprt[which.max(v), k] <- apprt[which.max(v), k] + 1L
+      }
+    }
+
+    apprt
+  },
+  name = "balinski_young"
+)

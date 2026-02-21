@@ -20,9 +20,11 @@
 #' relative difference in representation between any two units.
 #'
 #' @inheritParams app_adams
-#'
-#' @return An integer vector of the same length as `pop` with the number of
-#'   seats apportioned to each unit.
+#' @inheritParams app_dhondt
+#' @param thresh A population threshold for assigning seats. Units with
+#'   population below this threshold receive zero seats, by default. Only affects
+#'   the default value of `init`; if `init` is provided, `thresh` is ignored.
+#' @inherit app_adams return
 #'
 #' @references
 #' Huntington, E. V. (1928). The apportionment of representatives in Congress.
@@ -32,23 +34,40 @@
 #' @examples
 #' app_huntington_hill(size = 435, pop = state_2020$pop)
 #' @export
-app_huntington_hill <- function(size, pop) {
-  apprt <- rep.int(1L, times = length(pop))
-  rem <- size - sum(apprt)
-  if (rem < 0) {
-    stop('There are more entries in {.arg pop} than {.arg size} is large.')
+app_huntington_hill <- function(size, pop, init = NULL, thresh = 0) {
+  if (size < 0) {
+    stop("`size` must be positive.")
   }
-
-  prios <- integer(length = length(pop))
-  while (rem > 0) {
-    prios <- pop / sqrt(apprt * (apprt + 1))
-    apprt[which.max(prios)] <- apprt[which.max(prios)] + 1L
-    rem <- rem - 1L
-  }
-
-  if (!is.null(names(pop))) {
-    names(apprt) <- names(pop)
-  }
-
-  apprt
+  init = make_init(init, pop)
+  init[pop > thresh] <- 1L
+  apprt <- run_huntington_hill(as.integer(size), as.matrix(pop), init)
+  restore_app(apprt, pop)
 }
+
+run_huntington_hill <- quickr::quick(
+  function(n_tot, pop, apprt) {
+    declare(type(n_tot = integer(1)), type(pop = double(n, m)), type(apprt = integer(n, m)))
+
+    for (k in seq_len(ncol(pop))) {
+      is_zero <- apprt[, k] == 0L
+      rem <- n_tot - sum(apprt[!is_zero, k])
+
+      while (rem > 0) {
+        prios <- pop[, k] / sqrt(apprt[, k] * (apprt[, k] + 1))
+        best <- 0L
+        idx <- 0L
+        for (j in seq_along(prios)) {
+            if (!is_zero[j] && prios[j] > best) {
+                best <- prios[j]
+                idx <- j
+            }
+        }
+        apprt[idx, k] <- apprt[idx, k] + 1L
+        rem <- rem - 1L
+      }
+    }
+
+    apprt
+  },
+  name = "huntington_hill"
+)

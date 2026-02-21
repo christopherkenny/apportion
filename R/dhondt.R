@@ -1,11 +1,12 @@
-#' Apportion by the D'Hondt (Jefferson) Method
+#' Apportion by the D'Hondt (Jefferson, greatest divisors) Method
 #'
-#' A sequential priority method widely used for **proportional representation**
+#' A sequential priority method widely used for proportional representation
 #' elections, including in Belgium, Spain, Portugal, the Netherlands, Austria,
 #' and many other countries. Mathematically equivalent to the Jefferson method,
-#' a procedure described by Thomas Jefferson.
+#' a procedure described by Thomas Jefferson, and also known as the greatest
+#' divisors method.
 #' Compared with the Webster/Sainte-Laguë method, D'Hondt/Jefferson tends to
-#' give a slight advantage to **larger** units.
+#' give a slight advantage to larger units.
 #'
 #' @details
 #' The D'Hondt method allocates seats sequentially. At each step, the next seat
@@ -28,31 +29,40 @@
 #' the same apportionment rule.
 #'
 #' @inheritParams app_adams
+#' @param init A vector or matrix of the same size as `pop` with the initial
+#'   number of seats allocated to each unit. Defaults to zero for all units.
+#' @inherit app_adams return
 #'
-#' @return An integer vector of the same length as `pop` with the number of
-#'   seats apportioned to each unit.
 #' @export
 #'
 #' @examples
 #' app_dhondt(size = 435, pop = state_2020$pop)
-app_dhondt <- function(size, pop) {
-  apprt <- rep.int(0, times = length(pop))
-
+app_dhondt <- function(size, pop, init = NULL) {
   if (size < 0) {
-    stop('{.arg size} must be positive.')
+    stop("`size` must be positive.")
   }
-
-  for (i in seq_len(size)) {
-    quotient <- pop / (apprt + 1)
-    apprt[which.max(quotient)] <- apprt[which.max(quotient)] + 1L
-  }
-
-  if (!is.null(names(pop))) {
-    names(apprt) <- names(pop)
-  }
-
-  apprt
+  apprt <- run_dhondt(as.integer(size), as.matrix(pop), make_init(init, pop))
+  restore_app(apprt, pop)
 }
+
+run_dhondt <- quickr::quick(
+  function(n_tot, pop, apprt) {
+    declare(type(n_tot = integer(1)), type(pop = double(n, m)), type(apprt = integer(n, m)))
+
+    for (k in seq_len(ncol(pop))) {
+      rem = n_tot - sum(apprt[, k])
+      while (rem > 0) {
+        quotient <- pop[, k] / (apprt[, k] + 1)
+        idx <- which.max(quotient)
+        apprt[idx, k] <- apprt[idx, k] + 1L
+        rem <- rem - 1L
+      }
+    }
+
+    apprt
+  },
+  name = "dhondt"
+)
 
 #' @export
 #' @rdname app_dhondt

@@ -9,15 +9,20 @@ app_hamilton_vinton(size, pop)
 \arguments{
 \item{size}{An integer number of seats to apportion across units}
 
-\item{pop}{A vector of population sizes for each unit}
+\item{pop}{A vector or matrix of population sizes for each unit. If a matrix
+is provided, the apportionment algorithm is applied columnwise:
+each row is a unit and each column is a replicate. For example, with
+congressional apportionment, the matrix would have 50 rows and as many
+columns as hypothetical census population scenarios.}
 }
 \value{
-An integer vector of the same length as \code{pop} with the number of
-seats apportioned to each unit.
+An integer vector or matrix of the same dimensions as \code{pop},
+containing the number of seats apportioned to each unit.
 }
 \description{
 A largest-remainder quota method used for US Congressional apportionment
 from 1850 to 1900. Also known as the Hamilton method or the Vinton method.
+Equivalent to the largest remainder method using the Hare quota.
 }
 \details{
 The Hamilton-Vinton method first computes the exact quota for each unit:
