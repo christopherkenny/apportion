@@ -18,12 +18,14 @@
 #' However, it is susceptible to the "Alabama paradox," in which increasing
 #' the total house size can paradoxically cause a unit to lose a seat.
 #'
-#' @inheritParams app-params
-#' @inherit app-params return
+#' @param size `r template_var_size()`
+#' @param pop `r template_var_pop()`
+#'
+#' @return `r template_var_return()`
+#' @export
 #'
 #' @examples
 #' app_hamilton_vinton(size = 435, pop = state_2020$pop)
-#' @export
 app_hamilton_vinton <- function(size, pop) {
   if (any(size < 0)) {
     stop("`size` must be non-negative.")

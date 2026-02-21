@@ -28,8 +28,12 @@
 #' sequential D'Hondt priority \eqn{p_i / (n_i + 1)} are two perspectives on
 #' the same apportionment rule.
 #'
-#' @inheritParams app-params
-#' @inherit app-params return
+#' @param size `r template_var_size()`
+#' @param pop `r template_var_pop()`
+#' @param init `r template_var_init()`
+#'
+#' @return `r template_var_return()`
+#' @export
 #'
 #' @export
 #'

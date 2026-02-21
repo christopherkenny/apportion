@@ -19,17 +19,20 @@
 #' otherwise. Among the divisor methods, Huntington-Hill minimizes the maximum
 #' relative difference in representation between any two units.
 #'
-#' @inheritParams app-params
+#' @param size `r template_var_size()`
+#' @param pop `r template_var_pop()`
+#' @param init `r template_var_init()`
 #' @param thresh A population threshold for assigning seats. Units with
 #'   population below this threshold receive zero seats, by default. Only affects
 #'   the default value of `init`; if `init` is provided, `thresh` is ignored.
-#'
-#' @inherit app_adams return
 #'
 #' @references
 #' Huntington, E. V. (1928). The apportionment of representatives in Congress.
 #' *Transactions of the American Mathematical Society*, 30(1), 85--110.
 #' \doi{10.2307/1989268}
+#'
+#' @return `r template_var_return()`
+#' @export
 #'
 #' @examples
 #' app_huntington_hill(size = 435, pop = state_2020$pop)
