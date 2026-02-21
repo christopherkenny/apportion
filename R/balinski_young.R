@@ -25,6 +25,7 @@
 #' practical compromise that prioritizes the quota property.
 #'
 #' @inheritParams app_adams
+#' @inheritParams app_dhondt
 #' @inherit app_adams return
 #'
 #' @references
