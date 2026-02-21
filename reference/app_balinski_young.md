@@ -13,15 +13,15 @@ app_balinski_young(size, pop)
 
 - size:
 
-  An integer number of seats to apportion across units
+  an integer number of seats to apportion across units
 
 - pop:
 
-  A vector of population sizes for each unit
+  a vector of population sizes for each unit
 
 ## Value
 
-An integer vector of the same length as `pop` with the number of seats
+an integer vector of the same length as `pop` with the number of seats
 apportioned to each unit.
 
 ## Details
