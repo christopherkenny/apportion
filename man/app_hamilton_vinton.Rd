@@ -7,15 +7,31 @@
 app_hamilton_vinton(size, pop)
 }
 \arguments{
-\item{size}{number of seats to apportion across units}
+\item{size}{An integer number of seats to apportion across units}
 
-\item{pop}{a vector of population sizes for each unit}
+\item{pop}{A vector of population sizes for each unit}
 }
 \value{
-integer vector
+An integer vector of the same length as \code{pop} with the number of
+seats apportioned to each unit.
 }
 \description{
-Apportion by the Hamilton-Vinton Method
+A largest-remainder quota method used for US Congressional apportionment
+from 1850 to 1900. Also known as the Hamilton method or the Vinton method.
+}
+\details{
+The Hamilton-Vinton method first computes the exact quota for each unit:
+\deqn{q_i = \frac{p_i \cdot H}{P}}
+where \eqn{p_i} is the population of unit \eqn{i}, \eqn{H} is the total
+number of seats (\code{size}), and \eqn{P = \sum_i p_i} is the total population.
+Each unit initially receives \eqn{\lfloor q_i \rfloor} seats. Any remaining
+seats are awarded one at a time to the units with the largest fractional
+remainders \eqn{q_i - \lfloor q_i \rfloor}.
+
+The method satisfies the \emph{quota property}: no unit ever receives fewer than
+\eqn{\lfloor q_i \rfloor} or more than \eqn{\lceil q_i \rceil} seats.
+However, it is susceptible to the "Alabama paradox," in which increasing
+the total house size can paradoxically cause a unit to lose a seat.
 }
 \examples{
 app_hamilton_vinton(size = 435, pop = state_2020$pop)

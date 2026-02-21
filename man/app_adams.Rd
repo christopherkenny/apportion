@@ -7,15 +7,31 @@
 app_adams(size, pop)
 }
 \arguments{
-\item{size}{number of seats to apportion across units}
+\item{size}{An integer number of seats to apportion across units}
 
-\item{pop}{a vector of population sizes for each unit}
+\item{pop}{A vector of population sizes for each unit}
 }
 \value{
-integer vector
+An integer vector of the same length as \code{pop} with the number of
+seats apportioned to each unit.
 }
 \description{
-Apportion by the Adams Method
+A divisor method that uses ceiling (round-up) rounding, proposed by John
+Quincy Adams. It was never adopted for US Congressional apportionment.
+}
+\details{
+The Adams method finds a common divisor \eqn{d} such that ceiling-rounded
+quotients sum to the desired house size:
+\deqn{\sum_{i} \left\lceil \frac{p_i}{d} \right\rceil = H}
+where \eqn{p_i} is the population of unit \eqn{i} and \eqn{H} is the total
+number of seats (\code{size}). The divisor \eqn{d} is adjusted iteratively until
+this condition is met.
+
+Because every non-zero fractional remainder is always rounded up, the Adams
+method is the most generous to small units among the classical divisor
+methods. Any unit with a positive population receives at least one seat,
+which can over-represent small states or parties relative to their population
+share.
 }
 \examples{
 app_adams(size = 435, pop = state_2020$pop)

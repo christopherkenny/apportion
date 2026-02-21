@@ -1,21 +1,15 @@
-#' state_2020 (2020 State Data)
+#' 2020 State Population Data
 #'
 #' @name state_2020
 #'
 #' @description
 #' tibble with columns:
-#' - GEOID: Federal Information Processing Standards codes
-#' - name: title case state name
-#' - pop: 2020 population
-#' - abb: two letter postal abbreviations
-#'
-#' @return tibble with state identifying information
-#'
-#' @usage
-#' data('state_2020')
+#' - `GEOID`: Federal Information Processing Standards code
+#' - `name`: State name
+#' - `pop`: 2020 census population
+#' - `abb`: Two-letter postal abbreviation
 #'
 #' @examples
-#' data('state_2020')
-#' @md
+#' head(state_2020)
 #' @concept data
 NULL

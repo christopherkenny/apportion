@@ -2,23 +2,17 @@
 % Please edit documentation in R/data.R
 \name{state_2020}
 \alias{state_2020}
-\title{state_2020 (2020 State Data)}
-\usage{
-data('state_2020')
-}
-\value{
-tibble with state identifying information
-}
+\title{2020 State Population Data}
 \description{
 tibble with columns:
 \itemize{
-\item GEOID: Federal Information Processing Standards codes
-\item name: title case state name
-\item pop: 2020 population
-\item abb: two letter postal abbreviations
+\item \code{GEOID}: Federal Information Processing Standards code
+\item \code{name}: State name
+\item \code{pop}: 2020 census population
+\item \code{abb}: Two-letter postal abbreviation
 }
 }
 \examples{
-data('state_2020')
+head(state_2020)
 }
 \concept{data}
