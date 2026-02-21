@@ -25,7 +25,7 @@
 #' app_dean(size = 435, pop = state_2020$pop)
 #' @export
 app_dean <- function(size, pop) {
-  if (size < 0) {
+  if (any(size < 0)) {
     stop("`size` must be non-negative.")
   }
   apprt <- run_dean(make_size(size, pop), as.matrix(pop))
