@@ -7,8 +7,8 @@ extern void adams(
   const int* const n_tot__,
   const double* const pop__,
   int* const out__,
-  const R_len_t pop__dim_1_,
-  const R_len_t pop__dim_2_);
+  const R_xlen_t n_tot__len_,
+  const R_len_t pop__dim_1_);
 
 SEXP adams_(SEXP _args) {
   // n_tot
@@ -36,17 +36,18 @@ SEXP adams_(SEXP _args) {
   const int pop__dim_1_ = pop__dim_[0];
   const int pop__dim_2_ = pop__dim_[1];
 
-  if (n_tot__len_ != 1)
-    Rf_error("length(n_tot) must be 1, not %0.f",
-              (double)n_tot__len_);
-  const R_xlen_t out__len_ = (pop__dim_1_) * (pop__dim_2_);
+  if (n_tot__len_ != pop__dim_2_)
+    Rf_error("dim(pop)[2] must equal length(n_tot),"
+             " but are %0.f and %0.f",
+              (double)pop__dim_2_, (double)n_tot__len_);
+  const R_xlen_t out__len_ = (pop__dim_1_) * (n_tot__len_);
   SEXP out = PROTECT(Rf_allocVector(INTSXP, out__len_));
   int* out__ = INTEGER(out);
   {
     const SEXP _dim_sexp = PROTECT(Rf_allocVector(INTSXP, 2));
     int* const _dim = INTEGER(_dim_sexp);
     _dim[0] = pop__dim_1_;
-    _dim[1] = pop__dim_2_;
+    _dim[1] = n_tot__len_;
     Rf_dimgets(out, _dim_sexp);
   }
 
@@ -54,8 +55,8 @@ SEXP adams_(SEXP _args) {
     n_tot__,
     pop__,
     out__,
-    pop__dim_1_,
-    pop__dim_2_);
+    n_tot__len_,
+    pop__dim_1_);
 
   UNPROTECT(2);
   return out;
@@ -65,8 +66,8 @@ extern void balinski_young(
   const int* const n_tot__,
   const double* const pop__,
   const int* const apprt__,
-  const R_len_t pop__dim_1_,
-  const R_len_t pop__dim_2_);
+  const R_xlen_t n_tot__len_,
+  const R_len_t pop__dim_1_);
 
 SEXP balinski_young_(SEXP _args) {
   // n_tot
@@ -110,24 +111,25 @@ SEXP balinski_young_(SEXP _args) {
   const int apprt__dim_1_ = apprt__dim_[0];
   const int apprt__dim_2_ = apprt__dim_[1];
 
-  if (n_tot__len_ != 1)
-    Rf_error("length(n_tot) must be 1, not %0.f",
-              (double)n_tot__len_);
+  if (n_tot__len_ != pop__dim_2_)
+    Rf_error("dim(pop)[2] must equal length(n_tot),"
+             " but are %0.f and %0.f",
+              (double)pop__dim_2_, (double)n_tot__len_);
   if (pop__dim_1_ != apprt__dim_1_)
     Rf_error("dim(apprt)[1] must equal dim(pop)[1],"
              " but are %0.f and %0.f",
               (double)apprt__dim_1_, (double)pop__dim_1_);
-  if (pop__dim_2_ != apprt__dim_2_)
-    Rf_error("dim(apprt)[2] must equal dim(pop)[2],"
+  if (n_tot__len_ != apprt__dim_2_)
+    Rf_error("dim(apprt)[2] must equal length(n_tot),"
              " but are %0.f and %0.f",
-              (double)apprt__dim_2_, (double)pop__dim_2_);
+              (double)apprt__dim_2_, (double)n_tot__len_);
 
   balinski_young(
     n_tot__,
     pop__,
     apprt__,
-    pop__dim_1_,
-    pop__dim_2_);
+    n_tot__len_,
+    pop__dim_1_);
 
   return apprt;
 }
@@ -136,8 +138,8 @@ extern void dean(
   const int* const n_tot__,
   const double* const pop__,
   int* const out__,
-  const R_len_t pop__dim_1_,
-  const R_len_t pop__dim_2_);
+  const R_xlen_t n_tot__len_,
+  const R_len_t pop__dim_1_);
 
 SEXP dean_(SEXP _args) {
   // n_tot
@@ -165,17 +167,18 @@ SEXP dean_(SEXP _args) {
   const int pop__dim_1_ = pop__dim_[0];
   const int pop__dim_2_ = pop__dim_[1];
 
-  if (n_tot__len_ != 1)
-    Rf_error("length(n_tot) must be 1, not %0.f",
-              (double)n_tot__len_);
-  const R_xlen_t out__len_ = (pop__dim_1_) * (pop__dim_2_);
+  if (n_tot__len_ != pop__dim_2_)
+    Rf_error("dim(pop)[2] must equal length(n_tot),"
+             " but are %0.f and %0.f",
+              (double)pop__dim_2_, (double)n_tot__len_);
+  const R_xlen_t out__len_ = (pop__dim_1_) * (n_tot__len_);
   SEXP out = PROTECT(Rf_allocVector(INTSXP, out__len_));
   int* out__ = INTEGER(out);
   {
     const SEXP _dim_sexp = PROTECT(Rf_allocVector(INTSXP, 2));
     int* const _dim = INTEGER(_dim_sexp);
     _dim[0] = pop__dim_1_;
-    _dim[1] = pop__dim_2_;
+    _dim[1] = n_tot__len_;
     Rf_dimgets(out, _dim_sexp);
   }
 
@@ -183,8 +186,8 @@ SEXP dean_(SEXP _args) {
     n_tot__,
     pop__,
     out__,
-    pop__dim_1_,
-    pop__dim_2_);
+    n_tot__len_,
+    pop__dim_1_);
 
   UNPROTECT(2);
   return out;
@@ -194,8 +197,8 @@ extern void dhondt(
   const int* const n_tot__,
   const double* const pop__,
   const int* const apprt__,
-  const R_len_t pop__dim_1_,
-  const R_len_t pop__dim_2_);
+  const R_xlen_t n_tot__len_,
+  const R_len_t pop__dim_1_);
 
 SEXP dhondt_(SEXP _args) {
   // n_tot
@@ -239,24 +242,25 @@ SEXP dhondt_(SEXP _args) {
   const int apprt__dim_1_ = apprt__dim_[0];
   const int apprt__dim_2_ = apprt__dim_[1];
 
-  if (n_tot__len_ != 1)
-    Rf_error("length(n_tot) must be 1, not %0.f",
-              (double)n_tot__len_);
+  if (n_tot__len_ != pop__dim_2_)
+    Rf_error("dim(pop)[2] must equal length(n_tot),"
+             " but are %0.f and %0.f",
+              (double)pop__dim_2_, (double)n_tot__len_);
   if (pop__dim_1_ != apprt__dim_1_)
     Rf_error("dim(apprt)[1] must equal dim(pop)[1],"
              " but are %0.f and %0.f",
               (double)apprt__dim_1_, (double)pop__dim_1_);
-  if (pop__dim_2_ != apprt__dim_2_)
-    Rf_error("dim(apprt)[2] must equal dim(pop)[2],"
+  if (n_tot__len_ != apprt__dim_2_)
+    Rf_error("dim(apprt)[2] must equal length(n_tot),"
              " but are %0.f and %0.f",
-              (double)apprt__dim_2_, (double)pop__dim_2_);
+              (double)apprt__dim_2_, (double)n_tot__len_);
 
   dhondt(
     n_tot__,
     pop__,
     apprt__,
-    pop__dim_1_,
-    pop__dim_2_);
+    n_tot__len_,
+    pop__dim_1_);
 
   return apprt;
 }
@@ -265,8 +269,8 @@ extern void hamilton_vinton(
   const int* const n_tot__,
   const double* const pop__,
   int* const out__,
-  const R_len_t pop__dim_1_,
-  const R_len_t pop__dim_2_);
+  const R_xlen_t n_tot__len_,
+  const R_len_t pop__dim_1_);
 
 SEXP hamilton_vinton_(SEXP _args) {
   // n_tot
@@ -294,17 +298,18 @@ SEXP hamilton_vinton_(SEXP _args) {
   const int pop__dim_1_ = pop__dim_[0];
   const int pop__dim_2_ = pop__dim_[1];
 
-  if (n_tot__len_ != 1)
-    Rf_error("length(n_tot) must be 1, not %0.f",
-              (double)n_tot__len_);
-  const R_xlen_t out__len_ = (pop__dim_1_) * (pop__dim_2_);
+  if (n_tot__len_ != pop__dim_2_)
+    Rf_error("dim(pop)[2] must equal length(n_tot),"
+             " but are %0.f and %0.f",
+              (double)pop__dim_2_, (double)n_tot__len_);
+  const R_xlen_t out__len_ = (pop__dim_1_) * (n_tot__len_);
   SEXP out = PROTECT(Rf_allocVector(INTSXP, out__len_));
   int* out__ = INTEGER(out);
   {
     const SEXP _dim_sexp = PROTECT(Rf_allocVector(INTSXP, 2));
     int* const _dim = INTEGER(_dim_sexp);
     _dim[0] = pop__dim_1_;
-    _dim[1] = pop__dim_2_;
+    _dim[1] = n_tot__len_;
     Rf_dimgets(out, _dim_sexp);
   }
 
@@ -312,8 +317,8 @@ SEXP hamilton_vinton_(SEXP _args) {
     n_tot__,
     pop__,
     out__,
-    pop__dim_1_,
-    pop__dim_2_);
+    n_tot__len_,
+    pop__dim_1_);
 
   UNPROTECT(2);
   return out;
@@ -323,8 +328,8 @@ extern void huntington_hill(
   const int* const n_tot__,
   const double* const pop__,
   const int* const apprt__,
-  const R_len_t pop__dim_1_,
-  const R_len_t pop__dim_2_);
+  const R_xlen_t n_tot__len_,
+  const R_len_t pop__dim_1_);
 
 SEXP huntington_hill_(SEXP _args) {
   // n_tot
@@ -368,24 +373,25 @@ SEXP huntington_hill_(SEXP _args) {
   const int apprt__dim_1_ = apprt__dim_[0];
   const int apprt__dim_2_ = apprt__dim_[1];
 
-  if (n_tot__len_ != 1)
-    Rf_error("length(n_tot) must be 1, not %0.f",
-              (double)n_tot__len_);
+  if (n_tot__len_ != pop__dim_2_)
+    Rf_error("dim(pop)[2] must equal length(n_tot),"
+             " but are %0.f and %0.f",
+              (double)pop__dim_2_, (double)n_tot__len_);
   if (pop__dim_1_ != apprt__dim_1_)
     Rf_error("dim(apprt)[1] must equal dim(pop)[1],"
              " but are %0.f and %0.f",
               (double)apprt__dim_1_, (double)pop__dim_1_);
-  if (pop__dim_2_ != apprt__dim_2_)
-    Rf_error("dim(apprt)[2] must equal dim(pop)[2],"
+  if (n_tot__len_ != apprt__dim_2_)
+    Rf_error("dim(apprt)[2] must equal length(n_tot),"
              " but are %0.f and %0.f",
-              (double)apprt__dim_2_, (double)pop__dim_2_);
+              (double)apprt__dim_2_, (double)n_tot__len_);
 
   huntington_hill(
     n_tot__,
     pop__,
     apprt__,
-    pop__dim_1_,
-    pop__dim_2_);
+    n_tot__len_,
+    pop__dim_1_);
 
   return apprt;
 }
@@ -394,8 +400,8 @@ extern void webster(
   const int* const n_tot__,
   const double* const pop__,
   const int* const apprt__,
-  const R_len_t pop__dim_1_,
-  const R_len_t pop__dim_2_);
+  const R_xlen_t n_tot__len_,
+  const R_len_t pop__dim_1_);
 
 SEXP webster_(SEXP _args) {
   // n_tot
@@ -439,24 +445,25 @@ SEXP webster_(SEXP _args) {
   const int apprt__dim_1_ = apprt__dim_[0];
   const int apprt__dim_2_ = apprt__dim_[1];
 
-  if (n_tot__len_ != 1)
-    Rf_error("length(n_tot) must be 1, not %0.f",
-              (double)n_tot__len_);
+  if (n_tot__len_ != pop__dim_2_)
+    Rf_error("dim(pop)[2] must equal length(n_tot),"
+             " but are %0.f and %0.f",
+              (double)pop__dim_2_, (double)n_tot__len_);
   if (pop__dim_1_ != apprt__dim_1_)
     Rf_error("dim(apprt)[1] must equal dim(pop)[1],"
              " but are %0.f and %0.f",
               (double)apprt__dim_1_, (double)pop__dim_1_);
-  if (pop__dim_2_ != apprt__dim_2_)
-    Rf_error("dim(apprt)[2] must equal dim(pop)[2],"
+  if (n_tot__len_ != apprt__dim_2_)
+    Rf_error("dim(apprt)[2] must equal length(n_tot),"
              " but are %0.f and %0.f",
-              (double)apprt__dim_2_, (double)pop__dim_2_);
+              (double)apprt__dim_2_, (double)n_tot__len_);
 
   webster(
     n_tot__,
     pop__,
     apprt__,
-    pop__dim_1_,
-    pop__dim_2_);
+    n_tot__len_,
+    pop__dim_1_);
 
   return apprt;
 }

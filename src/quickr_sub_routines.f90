@@ -1,16 +1,16 @@
-subroutine adams(n_tot, pop, out, pop__dim_1_, pop__dim_2_) bind(c)
-  use iso_c_binding, only: c_double, c_int
+subroutine adams(n_tot, pop, out, n_tot__len_, pop__dim_1_) bind(c)
+  use iso_c_binding, only: c_double, c_int, c_ptrdiff_t
   implicit none
 
   ! manifest start
   ! sizes
+  integer(c_ptrdiff_t), intent(in), value :: n_tot__len_
   integer(c_int), intent(in), value :: pop__dim_1_
-  integer(c_int), intent(in), value :: pop__dim_2_
 
   ! args
-  integer(c_int), intent(in) :: n_tot
-  real(c_double), intent(in) :: pop(pop__dim_1_, pop__dim_2_)
-  integer(c_int), intent(out) :: out(pop__dim_1_, pop__dim_2_)
+  integer(c_int), intent(in) :: n_tot(n_tot__len_)
+  real(c_double), intent(in) :: pop(pop__dim_1_, n_tot__len_)
+  integer(c_int), intent(out) :: out(pop__dim_1_, n_tot__len_)
 
   ! locals
   integer(c_int) :: k
@@ -25,38 +25,38 @@ subroutine adams(n_tot, pop, out, pop__dim_1_, pop__dim_2_) bind(c)
 
   out = 0_c_int
   do k = 1, size(pop, 2)
-div = (aint((sum(pop(:, k)) / real(n_tot, kind=c_double))) - merge(1.0_c_double, 0.0_c_double, ((sum(pop(:, k)) / real(n_tot,&
-& kind=c_double)) < aint((sum(pop(:, k)) / real(n_tot, kind=c_double))))))
+div = (aint((sum(pop(:, k)) / real(n_tot(k), kind=c_double))) - merge(1.0_c_double, 0.0_c_double, ((sum(pop(:, k)) /&
+& real(n_tot(k), kind=c_double)) < aint((sum(pop(:, k)) / real(n_tot(k), kind=c_double))))))
     apprt = (aint((pop(:, k) / div)) + merge(1.0_c_double, 0.0_c_double, ((pop(:, k) / div) > aint((pop(:, k) / div)))))
-    rem = (n_tot - sum(apprt))
+    rem = (n_tot(k) - sum(apprt))
     do while ((rem /= 0.0_c_double))
       diff = merge(1_c_int, -1_c_int, (rem < 0_c_int))
       div = (div + diff)
       apprt = (aint((pop(:, k) / div)) + merge(1.0_c_double, 0.0_c_double, ((pop(:, k) / div) > aint((pop(:, k) / div)))))
-      rem = (n_tot - sum(apprt))
+      rem = (n_tot(k) - sum(apprt))
     end do
     out(:, k) = apprt
   end do
 end subroutine
 
-subroutine balinski_young(n_tot, pop, apprt, pop__dim_1_, pop__dim_2_) bind(c)
-  use iso_c_binding, only: c_double, c_int
+subroutine balinski_young(n_tot, pop, apprt, n_tot__len_, pop__dim_1_) bind(c)
+  use iso_c_binding, only: c_double, c_int, c_ptrdiff_t
   implicit none
 
   ! manifest start
   ! sizes
+  integer(c_ptrdiff_t), intent(in), value :: n_tot__len_
   integer(c_int), intent(in), value :: pop__dim_1_
-  integer(c_int), intent(in), value :: pop__dim_2_
 
   ! args
-  integer(c_int), intent(in) :: n_tot
-  real(c_double), intent(in) :: pop(pop__dim_1_, pop__dim_2_)
-  integer(c_int), intent(in out) :: apprt(pop__dim_1_, pop__dim_2_)
+  integer(c_int), intent(in) :: n_tot(n_tot__len_)
+  real(c_double), intent(in) :: pop(pop__dim_1_, n_tot__len_)
+  integer(c_int), intent(in out) :: apprt(pop__dim_1_, n_tot__len_)
 
   ! locals
   integer(c_int) :: k
   real(c_double) :: total_pop
-  integer(c_int) :: h
+  integer(c_int) :: rem
   real(c_double), allocatable :: v(:)
   integer(c_int) :: tmp1_
   ! manifest end
@@ -66,28 +66,30 @@ subroutine balinski_young(n_tot, pop, apprt, pop__dim_1_, pop__dim_2_) bind(c)
 
   do k = 1, size(pop, 2)
     total_pop = sum(pop(:, k))
-    do h = 1, n_tot
+    rem = (n_tot(k) - sum(apprt(:, k)))
+    do while ((rem > 0_c_int))
       v = (pop(:, k) / real(((1.0_c_double + apprt(:, k))), kind=c_double))
-v(pack([(tmp1_, tmp1_=1, size((pop(:, k) < ((pop(:, k) * h) / total_pop))))], (pop(:, k) < ((pop(:, k) * h) / total_pop)))) =&
-& 0.0_c_double
+v(pack([(tmp1_, tmp1_=1, size((pop(:, k) < ((pop(:, k) * ((n_tot(k) - rem))) / total_pop))))], (pop(:, k) < ((pop(:, k) *&
+& ((n_tot(k) - rem))) / total_pop)))) = 0.0_c_double
       apprt(maxloc(v, 1), k) = (apprt(maxloc(v, 1), k) + 1_c_int)
+      rem = (rem - 1_c_int)
     end do
   end do
 end subroutine
 
-subroutine dean(n_tot, pop, out, pop__dim_1_, pop__dim_2_) bind(c)
-  use iso_c_binding, only: c_double, c_int
+subroutine dean(n_tot, pop, out, n_tot__len_, pop__dim_1_) bind(c)
+  use iso_c_binding, only: c_double, c_int, c_ptrdiff_t
   implicit none
 
   ! manifest start
   ! sizes
+  integer(c_ptrdiff_t), intent(in), value :: n_tot__len_
   integer(c_int), intent(in), value :: pop__dim_1_
-  integer(c_int), intent(in), value :: pop__dim_2_
 
   ! args
-  integer(c_int), intent(in) :: n_tot
-  real(c_double), intent(in) :: pop(pop__dim_1_, pop__dim_2_)
-  integer(c_int), intent(out) :: out(pop__dim_1_, pop__dim_2_)
+  integer(c_int), intent(in) :: n_tot(n_tot__len_)
+  real(c_double), intent(in) :: pop(pop__dim_1_, n_tot__len_)
+  integer(c_int), intent(out) :: out(pop__dim_1_, n_tot__len_)
 
   ! locals
   integer(c_int) :: k
@@ -106,15 +108,15 @@ subroutine dean(n_tot, pop, out, pop__dim_1_, pop__dim_2_) bind(c)
 
   out = 0_c_int
   do k = 1, size(pop, 2)
-div = (aint((sum(pop(:, k)) / real(n_tot, kind=c_double))) - merge(1.0_c_double, 0.0_c_double, ((sum(pop(:, k)) / real(n_tot,&
-& kind=c_double)) < aint((sum(pop(:, k)) / real(n_tot, kind=c_double))))))
+div = (aint((sum(pop(:, k)) / real(n_tot(k), kind=c_double))) - merge(1.0_c_double, 0.0_c_double, ((sum(pop(:, k)) /&
+& real(n_tot(k), kind=c_double)) < aint((sum(pop(:, k)) / real(n_tot(k), kind=c_double))))))
     v = (pop(:, k) / div)
 fc = (((2.0_c_double * (aint(v) - merge(1.0_c_double, 0.0_c_double, (v < aint(v))))) * (aint(v) + merge(1.0_c_double,&
 & 0.0_c_double, (v > aint(v))))) / (((aint(v) - merge(1.0_c_double, 0.0_c_double, (v < aint(v)))) + (aint(v) + merge(1.0_c_double,&
 & 0.0_c_double, (v > aint(v)))))))
 apprt = merge((aint(v) - merge(1.0_c_double, 0.0_c_double, (v < aint(v)))), (aint(v) + merge(1.0_c_double, 0.0_c_double, (v >&
 & aint(v)))), (v < fc))
-    rem = (n_tot - sum(apprt))
+    rem = (n_tot(k) - sum(apprt))
     do while ((rem /= 0.0_c_double))
       diff = merge(1_c_int, -1_c_int, (rem < 0.0_c_double))
       div = (div + diff)
@@ -124,25 +126,25 @@ fc = (((2.0_c_double * (aint(v) - merge(1.0_c_double, 0.0_c_double, (v < aint(v)
 & 0.0_c_double, (v > aint(v)))))))
 apprt = merge((aint(v) - merge(1.0_c_double, 0.0_c_double, (v < aint(v)))), (aint(v) + merge(1.0_c_double, 0.0_c_double, (v >&
 & aint(v)))), (v < fc))
-      rem = (n_tot - sum(apprt))
+      rem = (n_tot(k) - sum(apprt))
     end do
     out(:, k) = apprt
   end do
 end subroutine
 
-subroutine dhondt(n_tot, pop, apprt, pop__dim_1_, pop__dim_2_) bind(c)
-  use iso_c_binding, only: c_double, c_int
+subroutine dhondt(n_tot, pop, apprt, n_tot__len_, pop__dim_1_) bind(c)
+  use iso_c_binding, only: c_double, c_int, c_ptrdiff_t
   implicit none
 
   ! manifest start
   ! sizes
+  integer(c_ptrdiff_t), intent(in), value :: n_tot__len_
   integer(c_int), intent(in), value :: pop__dim_1_
-  integer(c_int), intent(in), value :: pop__dim_2_
 
   ! args
-  integer(c_int), intent(in) :: n_tot
-  real(c_double), intent(in) :: pop(pop__dim_1_, pop__dim_2_)
-  integer(c_int), intent(in out) :: apprt(pop__dim_1_, pop__dim_2_)
+  integer(c_int), intent(in) :: n_tot(n_tot__len_)
+  real(c_double), intent(in) :: pop(pop__dim_1_, n_tot__len_)
+  integer(c_int), intent(in out) :: apprt(pop__dim_1_, n_tot__len_)
 
   ! locals
   integer(c_int) :: k
@@ -155,7 +157,7 @@ subroutine dhondt(n_tot, pop, apprt, pop__dim_1_, pop__dim_2_) bind(c)
 
 
   do k = 1, size(pop, 2)
-    rem = (n_tot - sum(apprt(:, k)))
+    rem = (n_tot(k) - sum(apprt(:, k)))
     do while ((rem > 0.0_c_double))
       quotient = (pop(:, k) / real(((apprt(:, k) + 1.0_c_double)), kind=c_double))
       idx = maxloc(quotient, 1)
@@ -165,19 +167,19 @@ subroutine dhondt(n_tot, pop, apprt, pop__dim_1_, pop__dim_2_) bind(c)
   end do
 end subroutine
 
-subroutine hamilton_vinton(n_tot, pop, out, pop__dim_1_, pop__dim_2_) bind(c)
-  use iso_c_binding, only: c_double, c_int
+subroutine hamilton_vinton(n_tot, pop, out, n_tot__len_, pop__dim_1_) bind(c)
+  use iso_c_binding, only: c_double, c_int, c_ptrdiff_t
   implicit none
 
   ! manifest start
   ! sizes
+  integer(c_ptrdiff_t), intent(in), value :: n_tot__len_
   integer(c_int), intent(in), value :: pop__dim_1_
-  integer(c_int), intent(in), value :: pop__dim_2_
 
   ! args
-  integer(c_int), intent(in) :: n_tot
-  real(c_double), intent(in) :: pop(pop__dim_1_, pop__dim_2_)
-  integer(c_int), intent(out) :: out(pop__dim_1_, pop__dim_2_)
+  integer(c_int), intent(in) :: n_tot(n_tot__len_)
+  real(c_double), intent(in) :: pop(pop__dim_1_, n_tot__len_)
+  integer(c_int), intent(out) :: out(pop__dim_1_, n_tot__len_)
 
   ! locals
   integer(c_int) :: k
@@ -199,11 +201,11 @@ subroutine hamilton_vinton(n_tot, pop, out, pop__dim_1_, pop__dim_2_) bind(c)
   out = 0_c_int
   do k = 1, size(pop, 2)
     total_pop = sum(pop(:, k))
-    denom = (total_pop / real(n_tot, kind=c_double))
+    denom = (total_pop / real(n_tot(k), kind=c_double))
     quotient = (pop(:, k) / denom)
     apprt = (aint(quotient) - merge(1.0_c_double, 0.0_c_double, (quotient < aint(quotient))))
     apprt(pack([(tmp1_, tmp1_=1, size((apprt == 0_c_int)))], (apprt == 0_c_int))) = 1_c_int
-    rem = (n_tot - sum(apprt))
+    rem = (n_tot(k) - sum(apprt))
     remainder = (quotient - apprt)
     do while ((rem > 0.0_c_double))
       idx = maxloc(remainder, 1)
@@ -215,19 +217,19 @@ subroutine hamilton_vinton(n_tot, pop, out, pop__dim_1_, pop__dim_2_) bind(c)
   end do
 end subroutine
 
-subroutine huntington_hill(n_tot, pop, apprt, pop__dim_1_, pop__dim_2_) bind(c)
-  use iso_c_binding, only: c_double, c_int
+subroutine huntington_hill(n_tot, pop, apprt, n_tot__len_, pop__dim_1_) bind(c)
+  use iso_c_binding, only: c_double, c_int, c_ptrdiff_t
   implicit none
 
   ! manifest start
   ! sizes
+  integer(c_ptrdiff_t), intent(in), value :: n_tot__len_
   integer(c_int), intent(in), value :: pop__dim_1_
-  integer(c_int), intent(in), value :: pop__dim_2_
 
   ! args
-  integer(c_int), intent(in) :: n_tot
-  real(c_double), intent(in) :: pop(pop__dim_1_, pop__dim_2_)
-  integer(c_int), intent(in out) :: apprt(pop__dim_1_, pop__dim_2_)
+  integer(c_int), intent(in) :: n_tot(n_tot__len_)
+  real(c_double), intent(in) :: pop(pop__dim_1_, n_tot__len_)
+  integer(c_int), intent(in out) :: apprt(pop__dim_1_, n_tot__len_)
 
   ! locals
   integer(c_int) :: k
@@ -246,7 +248,7 @@ subroutine huntington_hill(n_tot, pop, apprt, pop__dim_1_, pop__dim_2_) bind(c)
 
   do k = 1, size(pop, 2)
     is_zero = (apprt(:, k) == 0_c_int)
-    rem = (n_tot - sum(apprt(pack([(tmp1_, tmp1_=1, size((.not. is_zero)))], (.not. is_zero)), k)))
+    rem = (n_tot(k) - sum(apprt(pack([(tmp1_, tmp1_=1, size((.not. is_zero)))], (.not. is_zero)), k)))
     do while ((rem > 0.0_c_double))
       prios = (pop(:, k) / real(sqrt((apprt(:, k) * ((apprt(:, k) + 1.0_c_double)))), kind=c_double))
       best = 0_c_int
@@ -263,19 +265,19 @@ subroutine huntington_hill(n_tot, pop, apprt, pop__dim_1_, pop__dim_2_) bind(c)
   end do
 end subroutine
 
-subroutine webster(n_tot, pop, apprt, pop__dim_1_, pop__dim_2_) bind(c)
-  use iso_c_binding, only: c_double, c_int
+subroutine webster(n_tot, pop, apprt, n_tot__len_, pop__dim_1_) bind(c)
+  use iso_c_binding, only: c_double, c_int, c_ptrdiff_t
   implicit none
 
   ! manifest start
   ! sizes
+  integer(c_ptrdiff_t), intent(in), value :: n_tot__len_
   integer(c_int), intent(in), value :: pop__dim_1_
-  integer(c_int), intent(in), value :: pop__dim_2_
 
   ! args
-  integer(c_int), intent(in) :: n_tot
-  real(c_double), intent(in) :: pop(pop__dim_1_, pop__dim_2_)
-  integer(c_int), intent(in out) :: apprt(pop__dim_1_, pop__dim_2_)
+  integer(c_int), intent(in) :: n_tot(n_tot__len_)
+  real(c_double), intent(in) :: pop(pop__dim_1_, n_tot__len_)
+  integer(c_int), intent(in out) :: apprt(pop__dim_1_, n_tot__len_)
 
   ! locals
   integer(c_int) :: k
@@ -286,15 +288,15 @@ subroutine webster(n_tot, pop, apprt, pop__dim_1_, pop__dim_2_) bind(c)
 
 
   do k = 1, size(pop, 2)
-div = (aint((sum(pop(:, k)) / real(n_tot, kind=c_double))) - merge(1.0_c_double, 0.0_c_double, ((sum(pop(:, k)) / real(n_tot,&
-& kind=c_double)) < aint((sum(pop(:, k)) / real(n_tot, kind=c_double))))))
-    rem = (n_tot - sum(apprt(:, k)))
+div = (aint((sum(pop(:, k)) / real(n_tot(k), kind=c_double))) - merge(1.0_c_double, 0.0_c_double, ((sum(pop(:, k)) /&
+& real(n_tot(k), kind=c_double)) < aint((sum(pop(:, k)) / real(n_tot(k), kind=c_double))))))
+    rem = (n_tot(k) - sum(apprt(:, k)))
     do while ((rem /= 0.0_c_double))
       diff = merge(1_c_int, -1_c_int, (rem < 0.0_c_double))
       div = (div + diff)
 apprt(:, k) = (aint(((pop(:, k) / div) + 0.5_c_double)) - merge(1.0_c_double, 0.0_c_double, (((pop(:, k) / div) + 0.5_c_double) <&
 & aint(((pop(:, k) / div) + 0.5_c_double)))))
-      rem = (n_tot - sum(apprt(:, k)))
+      rem = (n_tot(k) - sum(apprt(:, k)))
     end do
   end do
 end subroutine

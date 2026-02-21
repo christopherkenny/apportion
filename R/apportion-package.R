@@ -22,10 +22,19 @@ restore_app = function(output, input) {
 make_init = function(init, pop) {
   if (is.null(init)) {
     if (is.matrix(pop)) {
-      init <- matrix(0L, nrow(pop), ncol(pop))
+      matrix(0L, nrow(pop), ncol(pop))
     } else {
-      init <- matrix(0L, length(pop), 1)
+      matrix(0L, length(pop), 1)
     }
+  } else {
+    as.matrix(init)
   }
-  init
+}
+
+make_size = function(size, pop) {
+  if (length(size) == 1L) {
+    rep(as.integer(size), if (is.matrix(pop)) ncol(pop) else 1L)
+  } else {
+    as.integer(size)
+  }
 }

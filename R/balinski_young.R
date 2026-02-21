@@ -36,24 +36,26 @@
 #' app_balinski_young(size = 435, pop = state_2020$pop)
 #' @export
 app_balinski_young <- function(size, pop, init = NULL) {
-  if (size < 0) {
+  if (any(size < 0)) {
     stop("`size` must be positive.")
   }
-  apprt <- run_balinski_young(as.integer(size), as.matrix(pop), make_init(init, pop))
+  apprt <- run_balinski_young(make_size(size, pop), as.matrix(pop), make_init(init, pop))
   restore_app(apprt, pop)
 }
 
 run_balinski_young <- quickr::quick(
   function(n_tot, pop, apprt) {
-    declare(type(n_tot = integer(1)), type(pop = double(n, m)), type(apprt = integer(n, m)))
+    declare(type(n_tot = integer(m)), type(pop = double(n, m)), type(apprt = integer(n, m)))
 
     for (k in seq_len(ncol(pop))) {
       total_pop <- sum(pop[, k])
+      rem <- n_tot[k] - sum(apprt[, k])
 
-      for (h in seq_len(n_tot)) {
+      while (rem > 0L) {
         v <- pop[, k] / (1 + apprt[, k])
-        v[pop[, k] < pop[, k] * h / total_pop] <- 0
+        v[pop[, k] < pop[, k] * (n_tot[k] - rem) / total_pop] <- 0
         apprt[which.max(v), k] <- apprt[which.max(v), k] + 1L
+        rem <- rem - 1L
       }
     }
 

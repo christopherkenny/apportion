@@ -17,7 +17,8 @@
 #' which can over-represent small states or parties relative to their population
 #' share.
 #'
-#' @param size An integer number of seats to apportion across units
+#' @param size An integer number of seats to apportion across units, or a vector
+#'  of numbers oof seats, one for each column of `pop`. Must be positive.
 #' @param pop A vector or matrix of population sizes for each unit. If a matrix
 #'   is provided, the apportionment algorithm is applied columnwise:
 #'   each row is a unit and each column is a replicate. For example, with
@@ -31,29 +32,29 @@
 #' app_adams(size = 435, pop = state_2020$pop)
 #' @export
 app_adams <- function(size, pop) {
-  if (size < 0) {
+  if (any(size < 0)) {
     stop("`size` must be positive.")
   }
-  apprt <- run_adams(as.integer(size), as.matrix(pop))
+  apprt <- run_adams(make_size(size, pop), as.matrix(pop))
   restore_app(apprt, pop)
 }
 
 run_adams <- quickr::quick(
   function(n_tot, pop) {
-    declare(type(n_tot = integer(1)), type(pop = double(NA, NA)))
+    declare(type(n_tot = integer(m)), type(pop = double(NA, m)))
     out = matrix(0L, nrow = nrow(pop), ncol = ncol(pop))
 
     for (k in seq_len(ncol(pop))) {
-      div <- floor(sum(pop[, k]) / n_tot)
+      div <- floor(sum(pop[, k]) / n_tot[k])
 
       apprt <- ceiling(pop[, k] / div)
-      rem <- n_tot - sum(apprt)
+      rem <- n_tot[k] - sum(apprt)
 
       while (rem != 0) {
         diff <- ifelse(rem < 0L, 1L, -1L)
         div <- div + diff
         apprt <- ceiling(pop[, k] / div)
-        rem <- n_tot - sum(apprt)
+        rem <- n_tot[k] - sum(apprt)
       }
 
       out[, k] = apprt

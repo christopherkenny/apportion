@@ -29,23 +29,23 @@ app_webster <- function(size, pop, init = NULL) {
   if (size < 0) {
     stop("`size` must be positive.")
   }
-  apprt <- run_webster(as.integer(size), as.matrix(pop), make_init(init, pop))
+  apprt <- run_webster(make_size(size, pop), as.matrix(pop), make_init(init, pop))
   restore_app(apprt, pop)
 }
 
 run_webster <- quickr::quick(
   function(n_tot, pop, apprt) {
-    declare(type(n_tot = integer(1)), type(pop = double(n, m)), type(apprt = integer(n, m)))
+    declare(type(n_tot = integer(m)), type(pop = double(n, m)), type(apprt = integer(n, m)))
 
     for (k in seq_len(ncol(pop))) {
-      div <- floor(sum(pop[, k]) / n_tot)
-      rem <- n_tot - sum(apprt[, k])
+      div <- floor(sum(pop[, k]) / n_tot[k])
+      rem <- n_tot[k] - sum(apprt[, k])
 
       while (rem != 0) {
         diff <- ifelse(rem < 0, 1L, -1L)
         div <- div + diff
         apprt[, k] <- floor(pop[, k] / div + 0.5)
-        rem <- n_tot - sum(apprt[, k])
+        rem <- n_tot[k] - sum(apprt[, k])
       }
     }
 

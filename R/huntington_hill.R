@@ -35,22 +35,22 @@
 #' app_huntington_hill(size = 435, pop = state_2020$pop)
 #' @export
 app_huntington_hill <- function(size, pop, init = NULL, thresh = 0) {
-  if (size < 0) {
+  if (any(size < 0)) {
     stop("`size` must be positive.")
   }
   init = make_init(init, pop)
   init[pop > thresh] <- 1L
-  apprt <- run_huntington_hill(as.integer(size), as.matrix(pop), init)
+  apprt <- run_huntington_hill(make_size(size, pop), as.matrix(pop), init)
   restore_app(apprt, pop)
 }
 
 run_huntington_hill <- quickr::quick(
   function(n_tot, pop, apprt) {
-    declare(type(n_tot = integer(1)), type(pop = double(n, m)), type(apprt = integer(n, m)))
+    declare(type(n_tot = integer(m)), type(pop = double(n, m)), type(apprt = integer(n, m)))
 
     for (k in seq_len(ncol(pop))) {
       is_zero <- apprt[, k] == 0L
-      rem <- n_tot - sum(apprt[!is_zero, k])
+      rem <- n_tot[k] - sum(apprt[!is_zero, k])
 
       while (rem > 0) {
         prios <- pop[, k] / sqrt(apprt[, k] * (apprt[, k] + 1))

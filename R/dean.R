@@ -28,22 +28,22 @@ app_dean <- function(size, pop) {
   if (size < 0) {
     stop("`size` must be positive.")
   }
-  apprt <- run_dean(as.integer(size), as.matrix(pop))
+  apprt <- run_dean(make_size(size, pop), as.matrix(pop))
   restore_app(apprt, pop)
 }
 
 run_dean <- quickr::quick(
   function(n_tot, pop) {
-    declare(type(n_tot = integer(1)), type(pop = double(NA, NA)))
+    declare(type(n_tot = integer(m)), type(pop = double(NA, m)))
     out <- matrix(0L, nrow = nrow(pop), ncol = ncol(pop))
 
     for (k in seq_len(ncol(pop))) {
-      div <- floor(sum(pop[, k]) / n_tot)
+      div <- floor(sum(pop[, k]) / n_tot[k])
 
       v <- pop[, k] / div
       fc <- 2 * floor(v) * ceiling(v) / (floor(v) + ceiling(v))
       apprt <- ifelse(v < fc, floor(v), ceiling(v))
-      rem <- n_tot - sum(apprt)
+      rem <- n_tot[k] - sum(apprt)
 
       while (rem != 0) {
         diff <- ifelse(rem < 0, 1L, -1L)
@@ -51,7 +51,7 @@ run_dean <- quickr::quick(
         v <- pop[, k] / div
         fc <- 2 * floor(v) * ceiling(v) / (floor(v) + ceiling(v))
         apprt <- ifelse(v < fc, floor(v), ceiling(v))
-        rem <- n_tot - sum(apprt)
+        rem <- n_tot[k] - sum(apprt)
       }
 
       out[, k] <- apprt

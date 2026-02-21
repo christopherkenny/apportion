@@ -38,19 +38,19 @@
 #' @examples
 #' app_dhondt(size = 435, pop = state_2020$pop)
 app_dhondt <- function(size, pop, init = NULL) {
-  if (size < 0) {
+  if (any(size < 0)) {
     stop("`size` must be positive.")
   }
-  apprt <- run_dhondt(as.integer(size), as.matrix(pop), make_init(init, pop))
+  apprt <- run_dhondt(make_size(size, pop), as.matrix(pop), make_init(init, pop))
   restore_app(apprt, pop)
 }
 
 run_dhondt <- quickr::quick(
   function(n_tot, pop, apprt) {
-    declare(type(n_tot = integer(1)), type(pop = double(n, m)), type(apprt = integer(n, m)))
+    declare(type(n_tot = integer(m)), type(pop = double(n, m)), type(apprt = integer(n, m)))
 
     for (k in seq_len(ncol(pop))) {
-      rem = n_tot - sum(apprt[, k])
+      rem = n_tot[k] - sum(apprt[, k])
       while (rem > 0) {
         quotient <- pop[, k] / (apprt[, k] + 1)
         idx <- which.max(quotient)
