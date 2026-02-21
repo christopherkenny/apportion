@@ -40,7 +40,7 @@ app_dhondt <- function(size, pop) {
   apprt <- rep.int(0, times = length(pop))
 
   if (size < 0) {
-    stop('{.arg size} must be positive.')
+    stop('{.arg size} must be non-negative.')
   }
 
   for (i in seq_len(size)) {
