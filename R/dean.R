@@ -26,7 +26,7 @@
 #' @export
 app_dean <- function(size, pop) {
   if (size < 0) {
-    stop("`size` must be positive.")
+    stop("`size` must be non-negative.")
   }
   apprt <- run_dean(make_size(size, pop), as.matrix(pop))
   restore_app(apprt, pop)

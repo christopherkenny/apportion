@@ -26,7 +26,7 @@
 #' @export
 app_hamilton_vinton <- function(size, pop) {
   if (any(size < 0)) {
-    stop("`size` must be positive.")
+    stop("`size` must be non-negative.")
   }
   apprt <- run_hamilton_vinton(make_size(size, pop), as.matrix(pop))
   restore_app(apprt, pop)

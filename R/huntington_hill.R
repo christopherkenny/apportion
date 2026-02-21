@@ -36,7 +36,7 @@
 #' @export
 app_huntington_hill <- function(size, pop, init = NULL, thresh = 0) {
   if (any(size < 0)) {
-    stop("`size` must be positive.")
+    stop("`size` must be non-negative.")
   }
   init = make_init(init, pop)
   init[pop > thresh] <- 1L

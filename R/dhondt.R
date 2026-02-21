@@ -39,7 +39,7 @@
 #' app_dhondt(size = 435, pop = state_2020$pop)
 app_dhondt <- function(size, pop, init = NULL) {
   if (any(size < 0)) {
-    stop("`size` must be positive.")
+    stop("`size` must be non-negative.")
   }
   apprt <- run_dhondt(make_size(size, pop), as.matrix(pop), make_init(init, pop))
   restore_app(apprt, pop)

@@ -18,7 +18,7 @@
 #' share.
 #'
 #' @param size An integer number of seats to apportion across units, or a vector
-#'  of numbers oof seats, one for each column of `pop`. Must be positive.
+#'  of numbers oof seats, one for each column of `pop`. Must be non-negative.
 #' @param pop A vector or matrix of population sizes for each unit. If a matrix
 #'   is provided, the apportionment algorithm is applied columnwise:
 #'   each row is a unit and each column is a replicate. For example, with
@@ -33,7 +33,7 @@
 #' @export
 app_adams <- function(size, pop) {
   if (any(size < 0)) {
-    stop("`size` must be positive.")
+    stop("`size` must be non-negative.")
   }
   apprt <- run_adams(make_size(size, pop), as.matrix(pop))
   restore_app(apprt, pop)

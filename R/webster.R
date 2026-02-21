@@ -27,7 +27,7 @@
 #' @export
 app_webster <- function(size, pop, init = NULL) {
   if (size < 0) {
-    stop("`size` must be positive.")
+    stop("`size` must be non-negative.")
   }
   apprt <- run_webster(make_size(size, pop), as.matrix(pop), make_init(init, pop))
   restore_app(apprt, pop)

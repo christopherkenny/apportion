@@ -37,7 +37,7 @@
 #' @export
 app_balinski_young <- function(size, pop, init = NULL) {
   if (any(size < 0)) {
-    stop("`size` must be positive.")
+    stop("`size` must be non-negative.")
   }
   apprt <- run_balinski_young(make_size(size, pop), as.matrix(pop), make_init(init, pop))
   restore_app(apprt, pop)

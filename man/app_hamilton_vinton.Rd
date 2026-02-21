@@ -8,7 +8,7 @@ app_hamilton_vinton(size, pop)
 }
 \arguments{
 \item{size}{An integer number of seats to apportion across units, or a vector
-of numbers oof seats, one for each column of \code{pop}. Must be positive.}
+of numbers oof seats, one for each column of \code{pop}. Must be non-negative.}
 
 \item{pop}{A vector or matrix of population sizes for each unit. If a matrix
 is provided, the apportionment algorithm is applied columnwise:
