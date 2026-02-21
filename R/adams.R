@@ -17,11 +17,8 @@
 #' which can over-represent small states or parties relative to their population
 #' share.
 #'
-#' @param size An integer number of seats to apportion across units
-#' @param pop A vector of population sizes for each unit
-#'
-#' @return An integer vector of the same length as `pop` with the number of
-#'   seats apportioned to each unit.
+#' @inheritParams app-params
+#' @inherit app-params return
 #'
 #' @examples
 #' app_adams(size = 435, pop = state_2020$pop)

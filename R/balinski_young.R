@@ -24,10 +24,8 @@
 #' satisfy the quota property and avoid all paradoxes; this method is a
 #' practical compromise that prioritizes the quota property.
 #'
-#' @inheritParams app_adams
-#'
-#' @return An integer vector of the same length as `pop` with the number of
-#'   seats apportioned to each unit.
+#' @inheritParams app-params
+#' @inherit app-params return
 #'
 #' @references
 #' Balinski, M. L., & Young, H. P. (2001). *Fair Representation: Meeting the

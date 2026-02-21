@@ -20,10 +20,8 @@
 #' treatment of small versus large units, giving slightly more seats to small
 #' units than Webster but fewer than Huntington-Hill.
 #'
-#' @inheritParams app_adams
-#'
-#' @return An integer vector of the same length as `pop` with the number of
-#'   seats apportioned to each unit.
+#' @inheritParams app-params
+#' @inherit app-params return
 #'
 #' @examples
 #' app_dean(size = 435, pop = state_2020$pop)

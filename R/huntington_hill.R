@@ -19,10 +19,8 @@
 #' otherwise. Among the divisor methods, Huntington-Hill minimizes the maximum
 #' relative difference in representation between any two units.
 #'
-#' @inheritParams app_adams
-#'
-#' @return An integer vector of the same length as `pop` with the number of
-#'   seats apportioned to each unit.
+#' @inheritParams app-params
+#' @inherit app-params return
 #'
 #' @references
 #' Huntington, E. V. (1928). The apportionment of representatives in Congress.
