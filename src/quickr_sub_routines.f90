@@ -237,7 +237,7 @@ subroutine huntington_hill(n_tot, pop, apprt, n_tot__len_, pop__dim_1_) bind(c)
   integer(c_int) :: tmp1_
   integer(c_int) :: rem
   real(c_double), allocatable :: prios(:)
-  integer(c_int) :: best
+  real(c_double) :: best
   integer(c_int) :: idx
   integer(c_int) :: j
   ! manifest end
@@ -248,10 +248,13 @@ subroutine huntington_hill(n_tot, pop, apprt, n_tot__len_, pop__dim_1_) bind(c)
 
   do k = 1, size(pop, 2)
     is_zero = (apprt(:, k) == 0_c_int)
+    if (all(is_zero)) then
+      cycle
+    end if
     rem = (n_tot(k) - sum(apprt(pack([(tmp1_, tmp1_=1, size((.not. is_zero)))], (.not. is_zero)), k)))
     do while ((rem > 0.0_c_double))
       prios = (pop(:, k) / real(sqrt((apprt(:, k) * ((apprt(:, k) + 1.0_c_double)))), kind=c_double))
-      best = 0_c_int
+      best = 0.0_c_double
       idx = 0_c_int
       do j = 1, size(prios)
         if ((.not. is_zero(j)) .and. (prios(j) > best)) then

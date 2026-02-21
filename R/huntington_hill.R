@@ -54,11 +54,14 @@ run_huntington_hill <- quickr::quick(
 
     for (k in seq_len(ncol(pop))) {
       is_zero <- apprt[, k] == 0L
+      if (all(is_zero)) {
+          next
+      }
       rem <- n_tot[k] - sum(apprt[!is_zero, k])
 
       while (rem > 0) {
         prios <- pop[, k] / sqrt(apprt[, k] * (apprt[, k] + 1))
-        best <- 0L
+        best <- 0
         idx <- 0L
         for (j in seq_along(prios)) {
             if (!is_zero[j] && prios[j] > best) {
