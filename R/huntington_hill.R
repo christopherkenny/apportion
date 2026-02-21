@@ -19,11 +19,11 @@
 #' otherwise. Among the divisor methods, Huntington-Hill minimizes the maximum
 #' relative difference in representation between any two units.
 #'
-#' @inheritParams app_adams
-#' @inheritParams app_dhondt
+#' @inheritParams app-params
 #' @param thresh A population threshold for assigning seats. Units with
 #'   population below this threshold receive zero seats, by default. Only affects
 #'   the default value of `init`; if `init` is provided, `thresh` is ignored.
+#'
 #' @inherit app_adams return
 #'
 #' @references

@@ -24,9 +24,8 @@
 #' satisfy the quota property and avoid all paradoxes; this method is a
 #' practical compromise that prioritizes the quota property.
 #'
-#' @inheritParams app_adams
-#' @inheritParams app_dhondt
-#' @inherit app_adams return
+#' @inheritParams app-params
+#' @inherit app-params return
 #'
 #' @references
 #' Balinski, M. L., & Young, H. P. (2001). *Fair Representation: Meeting the

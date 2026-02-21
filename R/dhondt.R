@@ -28,10 +28,8 @@
 #' sequential D'Hondt priority \eqn{p_i / (n_i + 1)} are two perspectives on
 #' the same apportionment rule.
 #'
-#' @inheritParams app_adams
-#' @param init A vector or matrix of the same size as `pop` with the initial
-#'   number of seats allocated to each unit. Defaults to zero for all units.
-#' @inherit app_adams return
+#' @inheritParams app-params
+#' @inherit app-params return
 #'
 #' @export
 #'

@@ -18,8 +18,8 @@
 #' treatment of small versus large units, giving slightly more seats to small
 #' units than Webster but fewer than Huntington-Hill.
 #'
-#' @inheritParams app_adams
-#' @inherit app_adams return
+#' @inheritParams app-params
+#' @inherit app-params return
 #'
 #' @examples
 #' app_dean(size = 435, pop = state_2020$pop)

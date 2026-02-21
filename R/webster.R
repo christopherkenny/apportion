@@ -18,9 +18,8 @@
 #' small units. It minimizes the expected absolute deviation from exact quotas
 #' when populations are drawn from a wide range of sizes.
 #'
-#' @inheritParams app_adams
-#' @inheritParams app_dhondt
-#' @inherit app_adams return
+#' @inheritParams app-params
+#' @inherit app-params return
 #'
 #' @examples
 #' app_webster(size = 435, pop = state_2020$pop)

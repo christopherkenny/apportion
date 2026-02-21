@@ -17,16 +17,8 @@
 #' which can over-represent small states or parties relative to their population
 #' share.
 #'
-#' @param size An integer number of seats to apportion across units, or a vector
-#'  of numbers oof seats, one for each column of `pop`. Must be non-negative.
-#' @param pop A vector or matrix of population sizes for each unit. If a matrix
-#'   is provided, the apportionment algorithm is applied columnwise:
-#'   each row is a unit and each column is a replicate. For example, with
-#'   congressional apportionment, the matrix would have 50 rows and as many
-#'   columns as hypothetical census population scenarios.
-#'
-#' @return An integer vector or matrix of the same dimensions as `pop`,
-#'    containing the number of seats apportioned to each unit.
+#' @inheritParams app-params
+#' @inherit app-params return
 #'
 #' @examples
 #' app_adams(size = 435, pop = state_2020$pop)
