@@ -38,8 +38,12 @@ app_huntington_hill <- function(size, pop, init = NULL, thresh = 0) {
   if (any(size < 0)) {
     stop("`size` must be non-negative.")
   }
-  init = make_init(init, pop)
-  init[pop > thresh] <- 1L
+  if (is.null(init)) {
+    init <- make_init(init, pop)
+    init[pop > thresh] <- 1L
+  } else {
+    init <- as.matrix(init)
+  }
   apprt <- run_huntington_hill(make_size(size, pop), as.matrix(pop), init)
   restore_app(apprt, pop)
 }
