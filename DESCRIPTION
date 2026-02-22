@@ -2,7 +2,10 @@ Package: apportion
 Title: Apportion Seats
 Version: 0.0.2
 Authors@R: c(
-    person("Christopher T.", "Kenny", role = c("aut", "cre"), email = "ctkenny@proton.me",
+    person(given = "Christopher T.",
+           family = "Kenny",
+           role = c("aut", "cre"),
+           email = "ctkenny@proton.me",
            comment = c(ORCID = "0000-0002-9386-6860")),
     person("Cory", "McCartan", role = "aut", email = "mccartan@psu.edu",
            comment = c(ORCID = "0000-0002-6251-669X"))
