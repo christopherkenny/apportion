@@ -49,16 +49,22 @@ Quincy Adams. It was never adopted for US Congressional apportionment.</p>
 
 
 <dl><dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
-<dd><p>an integer number of seats to apportion across units</p></dd>
+<dd><p>An integer number of seats to apportion across units, or a vector of numbers
+of seats, one for each column of <code>pop</code>. Must be non-negative.</p></dd>
 
 
 <dt id="arg-pop">pop<a class="anchor" aria-label="anchor" href="#arg-pop"></a></dt>
-<dd><p>a vector of population sizes for each unit</p></dd>
+<dd><p>A vector or matrix of population sizes for each unit. If a matrix is
+provided, the apportionment algorithm is applied columnwise: each row is a
+unit and each column is a replicate. For example, with congressional
+apportionment, the matrix would have 50 rows and as many columns as
+hypothetical census population scenarios.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>an integer vector of the same length as <code>pop</code> with the number of seats apportioned to each unit.</p>
+    <p>An integer vector or matrix of the same dimensions as <code>pop</code>, containing the
+number of seats apportioned to each unit.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

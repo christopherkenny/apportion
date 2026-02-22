@@ -10,7 +10,7 @@
   : Apportion by the Dean Method
 - [`app_dhondt()`](https://christopherkenny.github.io/apportion/reference/app_dhondt.md)
   [`app_jefferson()`](https://christopherkenny.github.io/apportion/reference/app_dhondt.md)
-  : Apportion by the D'Hondt (Jefferson) Method
+  : Apportion by the D'Hondt (Jefferson, greatest divisors) Method
 - [`app_hamilton_vinton()`](https://christopherkenny.github.io/apportion/reference/app_hamilton_vinton.md)
   : Apportion by the Hamilton-Vinton Method
 - [`app_huntington_hill()`](https://christopherkenny.github.io/apportion/reference/app_huntington_hill.md)
