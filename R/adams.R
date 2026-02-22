@@ -21,10 +21,10 @@
 #' @param pop `r template_var_pop()`
 #'
 #' @return `r template_var_return()`
+#' @export
 #'
 #' @examples
 #' app_adams(size = 435, pop = state_2020$pop)
-#' @export
 app_adams <- function(size, pop) {
   if (any(size < 0)) {
     stop("`size` must be non-negative.")
