@@ -2,14 +2,13 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @importFrom utils globalVariables
 #' @useDynLib apportion, .registration = TRUE
 ## usethis namespace: end
 NULL
 
-globalVariables(c("type"))
+utils::globalVariables(c("type"))
 
-restore_app = function(output, input) {
+restore_app <- function(output, input) {
   dim(output) <- dim(input)
   if (is.matrix(output) && (!is.null(rownames(input)) || !is.null(colnames(input)))) {
     dimnames(output) <- dimnames(input)
@@ -19,7 +18,7 @@ restore_app = function(output, input) {
   output
 }
 
-make_init = function(init, pop) {
+make_init <- function(init, pop) {
   if (is.null(init)) {
     if (is.matrix(pop)) {
       matrix(0L, nrow(pop), ncol(pop))
@@ -31,7 +30,7 @@ make_init = function(init, pop) {
   }
 }
 
-make_size = function(size, pop) {
+make_size <- function(size, pop) {
   if (length(size) == 1L) {
     rep(as.integer(size), if (is.matrix(pop)) ncol(pop) else 1L)
   } else {
