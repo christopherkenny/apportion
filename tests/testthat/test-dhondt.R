@@ -5,4 +5,3 @@ test_that("D'Hondt Method works", {
 
   expect_equal(apprt, c(4, 3, 1, 0))
 })
-

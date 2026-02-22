@@ -19,40 +19,65 @@
 #' otherwise. Among the divisor methods, Huntington-Hill minimizes the maximum
 #' relative difference in representation between any two units.
 #'
+#' @param size `r template_var_size()`
+#' @param pop `r template_var_pop()`
+#' @param init `r template_var_init()`
+#' @param thresh A population threshold for assigning seats. Units with
+#'   population below this threshold receive zero seats, by default. Only affects
+#'   the default value of `init`; if `init` is provided, `thresh` is ignored.
+#'
 #' @references
 #' Huntington, E. V. (1928). The apportionment of representatives in Congress.
 #' *Transactions of the American Mathematical Society*, 30(1), 85--110.
 #' \doi{10.2307/1989268}
-#'
-#' @param size `r template_var_size()`
-#' @param pop `r template_var_pop()`
 #'
 #' @return `r template_var_return()`
 #' @export
 #'
 #' @examples
 #' app_huntington_hill(size = 435, pop = state_2020$pop)
-app_huntington_hill <- function(size, pop) {
-
-  # init ----
-  apprt <- rep.int(1L, times = length(pop))
-  rem <- size - sum(apprt)
-  if (rem < 0) {
-    stop('There are more entries in {.arg pop} than {.arg size} is large.')
+#' @export
+app_huntington_hill <- function(size, pop, init = NULL, thresh = 0) {
+  if (any(size < 0)) {
+    stop("`size` must be non-negative.")
   }
-
-  # run priorities ----
-  prios <- integer(length = length(pop))
-  while (rem > 0) {
-    prios <- pop / sqrt(apprt * (apprt + 1))
-    apprt[which.max(prios)] <- apprt[which.max(prios)] + 1L
-    rem <- rem - 1L
+  if (is.null(init)) {
+    init <- make_init(init, pop)
+    init[pop > thresh] <- 1L
+  } else {
+    init <- as.matrix(init)
   }
-
-  if (!is.null(names(pop))) {
-    names(apprt) <- names(pop)
-  }
-
-  apprt
+  apprt <- run_huntington_hill(make_size(size, pop), as.matrix(pop), init)
+  restore_app(apprt, pop)
 }
 
+run_huntington_hill <- quick(
+  function(n_tot, pop, apprt) {
+    declare(type(n_tot = integer(m)), type(pop = double(n, m)), type(apprt = integer(n, m)))
+
+    for (k in seq_len(ncol(pop))) {
+      is_zero <- apprt[, k] == 0L
+      if (all(is_zero)) {
+          next
+      }
+      rem <- n_tot[k] - sum(apprt[!is_zero, k])
+
+      while (rem > 0) {
+        prios <- pop[, k] / sqrt(apprt[, k] * (apprt[, k] + 1))
+        best <- 0
+        idx <- 0L
+        for (j in seq_along(prios)) {
+            if (!is_zero[j] && prios[j] > best) {
+                best <- prios[j]
+                idx <- j
+            }
+        }
+        apprt[idx, k] <- apprt[idx, k] + 1L
+        rem <- rem - 1L
+      }
+    }
+
+    apprt
+  },
+  name = "huntington_hill"
+)

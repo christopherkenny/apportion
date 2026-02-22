@@ -2,6 +2,7 @@
 #'
 #' A largest-remainder quota method used for US Congressional apportionment
 #' from 1850 to 1900. Also known as the Hamilton method or the Vinton method.
+#' Equivalent to the largest remainder method using the Hare quota.
 #'
 #' @details
 #' The Hamilton-Vinton method first computes the exact quota for each unit:
@@ -26,35 +27,38 @@
 #' @examples
 #' app_hamilton_vinton(size = 435, pop = state_2020$pop)
 app_hamilton_vinton <- function(size, pop) {
-  # init ----
-  apprt <- rep.int(1L, times = length(pop))
-
-  if (size < 0) {
-    stop('{.arg size} must be positive.')
+  if (any(size < 0)) {
+    stop("`size` must be non-negative.")
   }
-
-  total_pop <- sum(pop)
-
-  denom <- total_pop / size
-
-  quotient <- pop / denom
-
-  apprt <- floor(quotient)
-
-  apprt[apprt == 0] <- 1L
-
-  rem <- size - sum(apprt)
-
-  remainder <- quotient - apprt
-  while (rem > 0) {
-    apprt[which.max(remainder)] <- apprt[which.max(remainder)] + 1L
-    remainder[which.max(remainder)] <- 0
-    rem <- rem - 1L
-  }
-
-  if (!is.null(names(pop))) {
-    names(apprt) <- names(pop)
-  }
-
-  apprt
+  apprt <- run_hamilton_vinton(make_size(size, pop), as.matrix(pop))
+  restore_app(apprt, pop)
 }
+
+run_hamilton_vinton <- quick(
+  function(n_tot, pop) {
+    declare(type(n_tot = integer(m)), type(pop = double(NA, m)))
+    out <- matrix(0L, nrow = nrow(pop), ncol = ncol(pop))
+
+    for (k in seq_len(ncol(pop))) {
+      total_pop <- sum(pop[, k])
+      denom <- total_pop / n_tot[k]
+      quotient <- pop[, k] / denom
+      apprt <- floor(quotient)
+      apprt[apprt == 0] <- 1L
+      rem <- n_tot[k] - sum(apprt)
+      remainder <- quotient - apprt
+
+      while (rem > 0) {
+        idx <- which.max(remainder)
+        apprt[idx] <- apprt[idx] + 1L
+        remainder[idx] <- 0
+        rem <- rem - 1L
+      }
+
+      out[, k] <- apprt
+    }
+
+    out
+  },
+  name = "hamilton_vinton"
+)

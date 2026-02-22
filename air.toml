@@ -1,0 +1,6 @@
+[format]
+line-width = 96
+indent-width = 2
+indent-style = "space"
+persistent-line-breaks = true
+skip = ["list", "c"]

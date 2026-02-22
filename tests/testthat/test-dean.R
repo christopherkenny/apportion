@@ -5,4 +5,3 @@ test_that("Dean Method works", {
 
   expect_equal(apprt, c(4, 6, 2, 8))
 })
-

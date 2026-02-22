@@ -16,7 +16,9 @@ Encoding: UTF-8
 Depends:
     R (>= 2.10)
 Suggests:
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    quickr,
+    bench
 LazyData: true
 URL: https://github.com/christopherkenny/apportion,
     http://christophertkenny.com/apportion/
