@@ -34,7 +34,7 @@ app_hamilton_vinton <- function(size, pop) {
   restore_app(apprt, pop)
 }
 
-run_hamilton_vinton <- quickr::quick(
+run_hamilton_vinton <- quick(
   function(n_tot, pop) {
     declare(type(n_tot = integer(m)), type(pop = double(NA, m)))
     out <- matrix(0L, nrow = nrow(pop), ncol = ncol(pop))

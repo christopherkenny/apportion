@@ -47,7 +47,7 @@ app_dhondt <- function(size, pop, init = NULL) {
   restore_app(apprt, pop)
 }
 
-run_dhondt <- quickr::quick(
+run_dhondt <- quick(
   function(n_tot, pop, apprt) {
     declare(type(n_tot = integer(m)), type(pop = double(n, m)), type(apprt = integer(n, m)))
 

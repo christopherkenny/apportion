@@ -46,7 +46,7 @@ app_balinski_young <- function(size, pop, init = NULL) {
   restore_app(apprt, pop)
 }
 
-run_balinski_young <- quickr::quick(
+run_balinski_young <- quick(
   function(n_tot, pop, apprt) {
     declare(type(n_tot = integer(m)), type(pop = double(n, m)), type(apprt = integer(n, m)))
 

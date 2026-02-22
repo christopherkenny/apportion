@@ -51,7 +51,7 @@ app_huntington_hill <- function(size, pop, init = NULL, thresh = 0) {
   restore_app(apprt, pop)
 }
 
-run_huntington_hill <- quickr::quick(
+run_huntington_hill <- quick(
   function(n_tot, pop, apprt) {
     declare(type(n_tot = integer(m)), type(pop = double(n, m)), type(apprt = integer(n, m)))
 

@@ -3,7 +3,6 @@
 
 ## usethis namespace: start
 #' @importFrom utils globalVariables
-#' @importFrom quickr quick
 #' @useDynLib apportion, .registration = TRUE
 ## usethis namespace: end
 NULL

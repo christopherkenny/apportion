@@ -34,7 +34,7 @@ app_dean <- function(size, pop) {
   restore_app(apprt, pop)
 }
 
-run_dean <- quickr::quick(
+run_dean <- quick(
   function(n_tot, pop) {
     declare(type(n_tot = integer(m)), type(pop = double(NA, m)))
     out <- matrix(0L, nrow = nrow(pop), ncol = ncol(pop))

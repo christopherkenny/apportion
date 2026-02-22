@@ -36,7 +36,7 @@ app_webster <- function(size, pop, init = NULL) {
   restore_app(apprt, pop)
 }
 
-run_webster <- quickr::quick(
+run_webster <- quick(
   function(n_tot, pop, apprt) {
     declare(type(n_tot = integer(m)), type(pop = double(n, m)), type(apprt = integer(n, m)))
 
