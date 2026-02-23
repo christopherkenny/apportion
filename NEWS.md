@@ -4,6 +4,6 @@
 * Use `quickr` to run apportionment algorithms in Fortran for improved
   performance and memory usage.
 
-# apportion 0.0.2.
+# apportion 0.0.1
 
 * Initial CRAN release
