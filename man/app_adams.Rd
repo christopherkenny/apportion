@@ -7,12 +7,18 @@
 app_adams(size, pop)
 }
 \arguments{
-\item{size}{an integer number of seats to apportion across units}
+\item{size}{An integer number of seats to apportion across units, or a vector of numbers
+of seats, one for each column of \code{pop}. Must be non-negative.}
 
-\item{pop}{a vector of population sizes for each unit}
+\item{pop}{A vector or matrix of population sizes for each unit. If a matrix is
+provided, the apportionment algorithm is applied columnwise: each row is a
+unit and each column is a replicate. For example, with congressional
+apportionment, the matrix would have 50 rows and as many columns as
+hypothetical census population scenarios.}
 }
 \value{
-an integer vector of the same length as \code{pop} with the number of seats apportioned to each unit.
+An integer vector or matrix of the same dimensions as \code{pop}, containing the
+number of seats apportioned to each unit.
 }
 \description{
 A divisor method that uses ceiling (round-up) rounding, proposed by John

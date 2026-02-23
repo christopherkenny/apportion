@@ -22,9 +22,9 @@ st <- st |>
 
 st <- st |> move_states(trim_hi = TRUE)
 
-tiny <- lapply(seq_len(nrow(st)),
-       function(i) place_geometry(geometry = st |> slice(i) |> st_geometry(),
-                                  scale = st$scale[i])) |>
+tiny <- lapply(seq_len(nrow(st)), function(i) {
+  place_geometry(geometry = st |> slice(i) |> st_geometry(), scale = st$scale[i])
+}) |>
   do.call(what = 'rbind', args = _) |>
   st_sfc() |>
   `st_crs<-`('ESRI:102003')

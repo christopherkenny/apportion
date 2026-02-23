@@ -4,15 +4,28 @@
 \alias{app_huntington_hill}
 \title{Apportion by the Huntington-Hill (Equal proportions) Method}
 \usage{
-app_huntington_hill(size, pop)
+app_huntington_hill(size, pop, init = NULL, thresh = 0)
 }
 \arguments{
-\item{size}{an integer number of seats to apportion across units}
+\item{size}{An integer number of seats to apportion across units, or a vector of numbers
+of seats, one for each column of \code{pop}. Must be non-negative.}
 
-\item{pop}{a vector of population sizes for each unit}
+\item{pop}{A vector or matrix of population sizes for each unit. If a matrix is
+provided, the apportionment algorithm is applied columnwise: each row is a
+unit and each column is a replicate. For example, with congressional
+apportionment, the matrix would have 50 rows and as many columns as
+hypothetical census population scenarios.}
+
+\item{init}{A vector or matrix of the same size as \code{pop} with the initial number of seats
+allocated to each unit. Defaults to zero for all units.}
+
+\item{thresh}{A population threshold for assigning seats. Units with
+population below this threshold receive zero seats, by default. Only affects
+the default value of \code{init}; if \code{init} is provided, \code{thresh} is ignored.}
 }
 \value{
-an integer vector of the same length as \code{pop} with the number of seats apportioned to each unit.
+An integer vector or matrix of the same dimensions as \code{pop}, containing the
+number of seats apportioned to each unit.
 }
 \description{
 The current method used for US Congressional apportionment, in continuous
