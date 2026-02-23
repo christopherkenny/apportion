@@ -19,11 +19,11 @@ app_huntington_hill(size, pop, init = NULL, thresh = 0)
 
 - pop:
 
-  A vector or matrix of population sizes for each unit. If a matrix is
-  provided, the apportionment algorithm is applied columnwise: each row
-  is a unit and each column is a replicate. For example, with
-  congressional apportionment, the matrix would have 50 rows and as many
-  columns as hypothetical census population scenarios.
+  A vector or matrix of population sizes or proportions for each unit.
+  If a matrix is provided, the apportionment algorithm is applied
+  columnwise: each row is a unit and each column is a replicate. For
+  example, with congressional apportionment, the matrix would have 50
+  rows and as many columns as hypothetical census population scenarios.
 
 - init:
 

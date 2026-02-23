@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Apportion Seats">
-<meta name="description" content="Convert populations into integer number of seats for legislative bodies. Implements apportionment methods used historically and currently in the United States for reapportionment after the Census, as described in &lt;https://www.census.gov/history/www/reference/apportionment/methods_of_apportionment.html&gt;.">
-<meta property="og:description" content="Convert populations into integer number of seats for legislative bodies. Implements apportionment methods used historically and currently in the United States for reapportionment after the Census, as described in &lt;https://www.census.gov/history/www/reference/apportionment/methods_of_apportionment.html&gt;.">
+<meta name="description" content="Convert populations into integer number of seats for legislative bodies. Implements apportionment methods used historically and currently in the United States for reapportionment after the Census, as described in &lt;https://www.census.gov/history/www/reference/apportionment/methods_of_apportionment.html&gt;. These methods are also sometimes used for allocating seats by votes in proportional representation systems.">
+<meta property="og:description" content="Convert populations into integer number of seats for legislative bodies. Implements apportionment methods used historically and currently in the United States for reapportionment after the Census, as described in &lt;https://www.census.gov/history/www/reference/apportionment/methods_of_apportionment.html&gt;. These methods are also sometimes used for allocating seats by votes in proportional representation systems.">
 <meta property="og:image" content="https://christopherkenny.github.io/apportion/logo.png">
 </head>
 <body>
@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">apportion</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,32 +59,32 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of <code>apportion</code> like so:</p>
+<p>You can install <code>apportion</code> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'christopherkenny/apportion'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"apportion"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p><code>apportion</code> has several apportionment methods, each of which take two required arguments: - <code>size</code>: the number of seats to apportion across units - <code>pop</code>: a vector of population sizes for each unit</p>
+<p><code>apportion</code> has several apportionment methods, each of which take two required arguments: - <code>size</code>: the number of seats to apportion across units - <code>pop</code>: population sizes or proportions for each unit</p>
+<p>Several methods also support an <code>init</code> argument for applying apportionment on top of an initial allocation.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/christopherkenny/apportion" class="external-link">apportion</a></span><span class="op">)</span></span>
 <span><span class="co">## basic example code</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">'state_2020'</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/app_adams.html">app_adams</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">435</span>, pop <span class="op">=</span> <span class="va">state_2020</span><span class="op">$</span><span class="va">pop</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  7  1  9  4 50  8  5  2 27 14  2  3 16  9  4  4  6  6  2  8  9 13  8  4  8</span></span>
-<span><span class="co">#&gt; [26]  2  3  4  2 12  3 26 14  1 15  5  6 17  2  7  2  9 37  5  1 11 10  3  8  1</span></span></code></pre></div>
-<p>Implemented methods include:</p>
+<span><span class="fu"><a href="reference/app_huntington_hill.html">app_huntington_hill</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">435</span>, pop <span class="op">=</span> <span class="va">state_2020</span><span class="op">$</span><span class="va">pop</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]  7  1  9  4 52  8  5  1 28 14  2  2 17  9  4  4  6  6  2  8  9 13  8  4  8</span></span>
+<span><span class="co">#&gt; [26]  2  3  4  2 12  3 26 14  1 15  5  6 17  2  7  1  9 38  4  1 11 10  2  8  1</span></span></code></pre></div>
+<p>Implemented methods:</p>
 <ul>
-<li>the Adams Method (<code><a href="reference/app_adams.html">app_adams()</a></code>)</li>
-<li>the Balinski Young Method (<code><a href="reference/app_balinski_young.html">app_balinski_young()</a></code>)</li>
-<li>the Dean Method (<code><a href="reference/app_dean.html">app_dean()</a></code>)</li>
-<li>the D’Hondt Method (<code><a href="reference/app_dhondt.html">app_dhondt()</a></code>)</li>
-<li>the Hamilton-Vinton Method (<code><a href="reference/app_hamilton_vinton.html">app_hamilton_vinton()</a></code>)</li>
-<li>the Huntington-Hill Method (<code><a href="reference/app_huntington_hill.html">app_huntington_hill()</a></code>)</li>
-<li>the Jefferson Method (<code><a href="reference/app_dhondt.html">app_jefferson()</a></code>)</li>
-<li>the Webster Method (<code><a href="reference/app_webster.html">app_webster()</a></code>)</li>
+<li>the Adams method (<code><a href="reference/app_adams.html">app_adams()</a></code>)</li>
+<li>the Balinski Young method (<code><a href="reference/app_balinski_young.html">app_balinski_young()</a></code>)</li>
+<li>the Dean method (<code><a href="reference/app_dean.html">app_dean()</a></code>)</li>
+<li>the D’Hondt (Jefferson, greatest divisors) method (<code><a href="reference/app_dhondt.html">app_dhondt()</a></code> and <code><a href="reference/app_dhondt.html">app_jefferson()</a></code>)</li>
+<li>the Hamilton-Vinton (Hare) method (<code><a href="reference/app_hamilton_vinton.html">app_hamilton_vinton()</a></code>)</li>
+<li>the Huntington-Hill (Equal proportions) method (<code><a href="reference/app_huntington_hill.html">app_huntington_hill()</a></code>)</li>
+<li>the Webster (Sainte-Laguë) method (<code><a href="reference/app_webster.html">app_webster()</a></code>)</li>
 </ul>
 </div>
 </div>
@@ -125,6 +125,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/christopherkenny/apportion/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/christopherkenny/apportion/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=apportion" class="external-link"><img src="https://www.r-pkg.org/badges/version/apportion" alt="CRAN status"></a></li>
 </ul>
 </div>
 

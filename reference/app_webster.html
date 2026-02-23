@@ -13,7 +13,7 @@ Sainte-Laguë method)."><meta property="og:image" content="https://christopherke
 
     <a class="navbar-brand me-2" href="../index.html">apportion</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,11 +60,11 @@ of seats, one for each column of <code>pop</code>. Must be non-negative.</p></dd
 
 
 <dt id="arg-pop">pop<a class="anchor" aria-label="anchor" href="#arg-pop"></a></dt>
-<dd><p>A vector or matrix of population sizes for each unit. If a matrix is
-provided, the apportionment algorithm is applied columnwise: each row is a
-unit and each column is a replicate. For example, with congressional
-apportionment, the matrix would have 50 rows and as many columns as
-hypothetical census population scenarios.</p></dd>
+<dd><p>A vector or matrix of population sizes or proportions for each unit.
+If a matrix is provided, the apportionment algorithm is applied columnwise:
+each row is a unit and each column is a replicate. For example, with
+congressional apportionment, the matrix would have 50 rows and as many columns
+as hypothetical census population scenarios.</p></dd>
 
 
 <dt id="arg-init">init<a class="anchor" aria-label="anchor" href="#arg-init"></a></dt>
