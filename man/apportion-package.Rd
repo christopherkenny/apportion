@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Convert populations into integer number of seats for legislative bodies. Implements apportionment methods used historically and currently in the United States for reapportionment after the Census, as described in \url{https://www.census.gov/history/www/reference/apportionment/methods_of_apportionment.html}.
+Convert populations into integer number of seats for legislative bodies. Implements apportionment methods used historically and currently in the United States for reapportionment after the Census, as described in \url{https://www.census.gov/history/www/reference/apportionment/methods_of_apportionment.html}. These methods are also sometimes used for allocating seats by votes in proportional representation systems.
 }
 \seealso{
 Useful links:

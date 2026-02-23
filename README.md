@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/christopherkenny/apportion/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/christopherkenny/apportion/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/apportion)](https://CRAN.R-project.org/package=apportion)
 <!-- badges: end -->
 
 `apportion` provides different apportionment methods for allocating
@@ -14,35 +16,39 @@ allocating seats by votes in proportional representation systems.
 
 ## Installation
 
-You can install the development version of `apportion` like so:
+You can install `apportion` with:
 
 ``` r
-remotes::install_github('christopherkenny/apportion')
+install.packages("apportion")
 ```
 
 ## Example
 
 `apportion` has several apportionment methods, each of which take two
 required arguments: - `size`: the number of seats to apportion across
-units - `pop`: a vector of population sizes for each unit
+units - `pop`: population sizes or proportions for each unit
+
+Several methods also support an `init` argument for applying
+apportionment on top of an initial allocation.
 
 ``` r
 library(apportion)
 ## basic example code
 data('state_2020')
 
-app_adams(size = 435, pop = state_2020$pop)
-#>  [1]  7  1  9  4 50  8  5  2 27 14  2  3 16  9  4  4  6  6  2  8  9 13  8  4  8
-#> [26]  2  3  4  2 12  3 26 14  1 15  5  6 17  2  7  2  9 37  5  1 11 10  3  8  1
+app_huntington_hill(size = 435, pop = state_2020$pop)
+#>  [1]  7  1  9  4 52  8  5  1 28 14  2  2 17  9  4  4  6  6  2  8  9 13  8  4  8
+#> [26]  2  3  4  2 12  3 26 14  1 15  5  6 17  2  7  1  9 38  4  1 11 10  2  8  1
 ```
 
-Implemented methods include:
+Implemented methods:
 
-- the Adams Method (`app_adams()`)
-- the Balinski Young Method (`app_balinski_young()`)
-- the Dean Method (`app_dean()`)
-- the D’Hondt Method (`app_dhondt()`)
-- the Hamilton-Vinton Method (`app_hamilton_vinton()`)
-- the Huntington-Hill Method (`app_huntington_hill()`)
-- the Jefferson Method (`app_jefferson()`)
-- the Webster Method (`app_webster()`)
+- the Adams method (`app_adams()`)
+- the Balinski Young method (`app_balinski_young()`)
+- the Dean method (`app_dean()`)
+- the D’Hondt (Jefferson, greatest divisors) method (`app_dhondt()` and
+  `app_jefferson()`)
+- the Hamilton-Vinton (Hare) method (`app_hamilton_vinton()`)
+- the Huntington-Hill (Equal proportions) method
+  (`app_huntington_hill()`)
+- the Webster (Sainte-Laguë) method (`app_webster()`)

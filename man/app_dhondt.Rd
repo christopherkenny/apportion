@@ -13,11 +13,11 @@ app_jefferson(size, pop, init = NULL)
 \item{size}{An integer number of seats to apportion across units, or a vector of numbers
 of seats, one for each column of \code{pop}. Must be non-negative.}
 
-\item{pop}{A vector or matrix of population sizes for each unit. If a matrix is
-provided, the apportionment algorithm is applied columnwise: each row is a
-unit and each column is a replicate. For example, with congressional
-apportionment, the matrix would have 50 rows and as many columns as
-hypothetical census population scenarios.}
+\item{pop}{A vector or matrix of population sizes or proportions for each unit.
+If a matrix is provided, the apportionment algorithm is applied columnwise:
+each row is a unit and each column is a replicate. For example, with
+congressional apportionment, the matrix would have 50 rows and as many columns
+as hypothetical census population scenarios.}
 
 \item{init}{A vector or matrix of the same size as \code{pop} with the initial number of seats
 allocated to each unit. Defaults to zero for all units.}
