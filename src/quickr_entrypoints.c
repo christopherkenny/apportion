@@ -27,12 +27,11 @@ SEXP adams_(SEXP _args) {
     Rf_error("typeof(pop) must be 'double', not '%s'", Rf_type2char(TYPEOF(pop)));
   }
   const double* const pop__ = REAL(pop);
-  const int* const pop__dim_ = ({
-  SEXP dim_ = Rf_getAttrib(pop, R_DimSymbol);
-  if (Rf_length(dim_) != 2) Rf_error(
+  SEXP pop_dim_sexp_ = Rf_getAttrib(pop, R_DimSymbol);
+  if (Rf_length(pop_dim_sexp_) != 2) Rf_error(
     "pop must be a 2D-array, but length(dim(pop)) is %i",
-    (int) Rf_length(dim_));
-  INTEGER(dim_);});
+    (int) Rf_length(pop_dim_sexp_));
+  const int* const pop__dim_ = INTEGER(pop_dim_sexp_);
   const int pop__dim_1_ = pop__dim_[0];
   const int pop__dim_2_ = pop__dim_[1];
 
@@ -86,12 +85,11 @@ SEXP balinski_young_(SEXP _args) {
     Rf_error("typeof(pop) must be 'double', not '%s'", Rf_type2char(TYPEOF(pop)));
   }
   const double* const pop__ = REAL(pop);
-  const int* const pop__dim_ = ({
-  SEXP dim_ = Rf_getAttrib(pop, R_DimSymbol);
-  if (Rf_length(dim_) != 2) Rf_error(
+  SEXP pop_dim_sexp_ = Rf_getAttrib(pop, R_DimSymbol);
+  if (Rf_length(pop_dim_sexp_) != 2) Rf_error(
     "pop must be a 2D-array, but length(dim(pop)) is %i",
-    (int) Rf_length(dim_));
-  INTEGER(dim_);});
+    (int) Rf_length(pop_dim_sexp_));
+  const int* const pop__dim_ = INTEGER(pop_dim_sexp_);
   const int pop__dim_1_ = pop__dim_[0];
   const int pop__dim_2_ = pop__dim_[1];
 
@@ -102,12 +100,11 @@ SEXP balinski_young_(SEXP _args) {
     Rf_error("typeof(apprt) must be 'integer', not '%s'", Rf_type2char(TYPEOF(apprt)));
   }
   const int* const apprt__ = INTEGER(apprt);
-  const int* const apprt__dim_ = ({
-  SEXP dim_ = Rf_getAttrib(apprt, R_DimSymbol);
-  if (Rf_length(dim_) != 2) Rf_error(
+  SEXP apprt_dim_sexp_ = Rf_getAttrib(apprt, R_DimSymbol);
+  if (Rf_length(apprt_dim_sexp_) != 2) Rf_error(
     "apprt must be a 2D-array, but length(dim(apprt)) is %i",
-    (int) Rf_length(dim_));
-  INTEGER(dim_);});
+    (int) Rf_length(apprt_dim_sexp_));
+  const int* const apprt__dim_ = INTEGER(apprt_dim_sexp_);
   const int apprt__dim_1_ = apprt__dim_[0];
   const int apprt__dim_2_ = apprt__dim_[1];
 
@@ -158,12 +155,11 @@ SEXP dean_(SEXP _args) {
     Rf_error("typeof(pop) must be 'double', not '%s'", Rf_type2char(TYPEOF(pop)));
   }
   const double* const pop__ = REAL(pop);
-  const int* const pop__dim_ = ({
-  SEXP dim_ = Rf_getAttrib(pop, R_DimSymbol);
-  if (Rf_length(dim_) != 2) Rf_error(
+  SEXP pop_dim_sexp_ = Rf_getAttrib(pop, R_DimSymbol);
+  if (Rf_length(pop_dim_sexp_) != 2) Rf_error(
     "pop must be a 2D-array, but length(dim(pop)) is %i",
-    (int) Rf_length(dim_));
-  INTEGER(dim_);});
+    (int) Rf_length(pop_dim_sexp_));
+  const int* const pop__dim_ = INTEGER(pop_dim_sexp_);
   const int pop__dim_1_ = pop__dim_[0];
   const int pop__dim_2_ = pop__dim_[1];
 
@@ -217,12 +213,11 @@ SEXP dhondt_(SEXP _args) {
     Rf_error("typeof(pop) must be 'double', not '%s'", Rf_type2char(TYPEOF(pop)));
   }
   const double* const pop__ = REAL(pop);
-  const int* const pop__dim_ = ({
-  SEXP dim_ = Rf_getAttrib(pop, R_DimSymbol);
-  if (Rf_length(dim_) != 2) Rf_error(
+  SEXP pop_dim_sexp_ = Rf_getAttrib(pop, R_DimSymbol);
+  if (Rf_length(pop_dim_sexp_) != 2) Rf_error(
     "pop must be a 2D-array, but length(dim(pop)) is %i",
-    (int) Rf_length(dim_));
-  INTEGER(dim_);});
+    (int) Rf_length(pop_dim_sexp_));
+  const int* const pop__dim_ = INTEGER(pop_dim_sexp_);
   const int pop__dim_1_ = pop__dim_[0];
   const int pop__dim_2_ = pop__dim_[1];
 
@@ -233,12 +228,11 @@ SEXP dhondt_(SEXP _args) {
     Rf_error("typeof(apprt) must be 'integer', not '%s'", Rf_type2char(TYPEOF(apprt)));
   }
   const int* const apprt__ = INTEGER(apprt);
-  const int* const apprt__dim_ = ({
-  SEXP dim_ = Rf_getAttrib(apprt, R_DimSymbol);
-  if (Rf_length(dim_) != 2) Rf_error(
+  SEXP apprt_dim_sexp_ = Rf_getAttrib(apprt, R_DimSymbol);
+  if (Rf_length(apprt_dim_sexp_) != 2) Rf_error(
     "apprt must be a 2D-array, but length(dim(apprt)) is %i",
-    (int) Rf_length(dim_));
-  INTEGER(dim_);});
+    (int) Rf_length(apprt_dim_sexp_));
+  const int* const apprt__dim_ = INTEGER(apprt_dim_sexp_);
   const int apprt__dim_1_ = apprt__dim_[0];
   const int apprt__dim_2_ = apprt__dim_[1];
 
@@ -289,12 +283,11 @@ SEXP hamilton_vinton_(SEXP _args) {
     Rf_error("typeof(pop) must be 'double', not '%s'", Rf_type2char(TYPEOF(pop)));
   }
   const double* const pop__ = REAL(pop);
-  const int* const pop__dim_ = ({
-  SEXP dim_ = Rf_getAttrib(pop, R_DimSymbol);
-  if (Rf_length(dim_) != 2) Rf_error(
+  SEXP pop_dim_sexp_ = Rf_getAttrib(pop, R_DimSymbol);
+  if (Rf_length(pop_dim_sexp_) != 2) Rf_error(
     "pop must be a 2D-array, but length(dim(pop)) is %i",
-    (int) Rf_length(dim_));
-  INTEGER(dim_);});
+    (int) Rf_length(pop_dim_sexp_));
+  const int* const pop__dim_ = INTEGER(pop_dim_sexp_);
   const int pop__dim_1_ = pop__dim_[0];
   const int pop__dim_2_ = pop__dim_[1];
 
@@ -348,12 +341,11 @@ SEXP huntington_hill_(SEXP _args) {
     Rf_error("typeof(pop) must be 'double', not '%s'", Rf_type2char(TYPEOF(pop)));
   }
   const double* const pop__ = REAL(pop);
-  const int* const pop__dim_ = ({
-  SEXP dim_ = Rf_getAttrib(pop, R_DimSymbol);
-  if (Rf_length(dim_) != 2) Rf_error(
+  SEXP pop_dim_sexp_ = Rf_getAttrib(pop, R_DimSymbol);
+  if (Rf_length(pop_dim_sexp_) != 2) Rf_error(
     "pop must be a 2D-array, but length(dim(pop)) is %i",
-    (int) Rf_length(dim_));
-  INTEGER(dim_);});
+    (int) Rf_length(pop_dim_sexp_));
+  const int* const pop__dim_ = INTEGER(pop_dim_sexp_);
   const int pop__dim_1_ = pop__dim_[0];
   const int pop__dim_2_ = pop__dim_[1];
 
@@ -364,12 +356,11 @@ SEXP huntington_hill_(SEXP _args) {
     Rf_error("typeof(apprt) must be 'integer', not '%s'", Rf_type2char(TYPEOF(apprt)));
   }
   const int* const apprt__ = INTEGER(apprt);
-  const int* const apprt__dim_ = ({
-  SEXP dim_ = Rf_getAttrib(apprt, R_DimSymbol);
-  if (Rf_length(dim_) != 2) Rf_error(
+  SEXP apprt_dim_sexp_ = Rf_getAttrib(apprt, R_DimSymbol);
+  if (Rf_length(apprt_dim_sexp_) != 2) Rf_error(
     "apprt must be a 2D-array, but length(dim(apprt)) is %i",
-    (int) Rf_length(dim_));
-  INTEGER(dim_);});
+    (int) Rf_length(apprt_dim_sexp_));
+  const int* const apprt__dim_ = INTEGER(apprt_dim_sexp_);
   const int apprt__dim_1_ = apprt__dim_[0];
   const int apprt__dim_2_ = apprt__dim_[1];
 
@@ -420,12 +411,11 @@ SEXP webster_(SEXP _args) {
     Rf_error("typeof(pop) must be 'double', not '%s'", Rf_type2char(TYPEOF(pop)));
   }
   const double* const pop__ = REAL(pop);
-  const int* const pop__dim_ = ({
-  SEXP dim_ = Rf_getAttrib(pop, R_DimSymbol);
-  if (Rf_length(dim_) != 2) Rf_error(
+  SEXP pop_dim_sexp_ = Rf_getAttrib(pop, R_DimSymbol);
+  if (Rf_length(pop_dim_sexp_) != 2) Rf_error(
     "pop must be a 2D-array, but length(dim(pop)) is %i",
-    (int) Rf_length(dim_));
-  INTEGER(dim_);});
+    (int) Rf_length(pop_dim_sexp_));
+  const int* const pop__dim_ = INTEGER(pop_dim_sexp_);
   const int pop__dim_1_ = pop__dim_[0];
   const int pop__dim_2_ = pop__dim_[1];
 
@@ -436,12 +426,11 @@ SEXP webster_(SEXP _args) {
     Rf_error("typeof(apprt) must be 'integer', not '%s'", Rf_type2char(TYPEOF(apprt)));
   }
   const int* const apprt__ = INTEGER(apprt);
-  const int* const apprt__dim_ = ({
-  SEXP dim_ = Rf_getAttrib(apprt, R_DimSymbol);
-  if (Rf_length(dim_) != 2) Rf_error(
+  SEXP apprt_dim_sexp_ = Rf_getAttrib(apprt, R_DimSymbol);
+  if (Rf_length(apprt_dim_sexp_) != 2) Rf_error(
     "apprt must be a 2D-array, but length(dim(apprt)) is %i",
-    (int) Rf_length(dim_));
-  INTEGER(dim_);});
+    (int) Rf_length(apprt_dim_sexp_));
+  const int* const apprt__dim_ = INTEGER(apprt_dim_sexp_);
   const int apprt__dim_1_ = apprt__dim_[0];
   const int apprt__dim_2_ = apprt__dim_[1];
 
