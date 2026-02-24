@@ -15,8 +15,10 @@ install.packages("apportion")
 ## Example
 
 `apportion` has several apportionment methods, each of which take two
-required arguments: - `size`: the number of seats to apportion across
-units - `pop`: population sizes or proportions for each unit
+required arguments:
+
+- `size`: the number of seats to apportion across units
+- `pop`: population sizes or proportions for each unit
 
 Several methods also support an `init` argument for applying
 apportionment on top of an initial allocation.
