@@ -9,6 +9,7 @@ allocating seats by votes in proportional representation systems.
 You can install `apportion` with:
 
 ``` r
+
 install.packages("apportion")
 ```
 
@@ -24,6 +25,7 @@ Several methods also support an `init` argument for applying
 apportionment on top of an initial allocation.
 
 ``` r
+
 library(apportion)
 ## basic example code
 data('state_2020')
